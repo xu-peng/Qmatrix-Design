@@ -1,0 +1,216 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Barnes%
+}{%
+Barnes%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+barnes2010novel}
+\APACinsertmetastar {%
+barnes2010novel}%
+\begin{APACrefauthors}%
+Barnes, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Novel derivation and application of skill matrices: The
+  q-matrix method} {Novel derivation and application of skill matrices: The
+  q-matrix method}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Handbook on educational data mining}{}{}{159--172}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Beck%
+\ \BBA {} Chang%
+}{%
+Beck%
+\ \BBA {} Chang%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+beck2007identifiability}
+\APACinsertmetastar {%
+beck2007identifiability}%
+\begin{APACrefauthors}%
+Beck, J\BPBI E.%
+\BCBT {}\ \BBA {} Chang, K\BHBI m.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Identifiability: A fundamental problem of student
+  modeling} {Identifiability: A fundamental problem of student
+  modeling}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {International Conference on User Modeling}
+  {International conference on user modeling}\ (\BPGS\ 137--146).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Chiu%
+}{%
+Chiu%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+chiu2013statistical}
+\APACinsertmetastar {%
+chiu2013statistical}%
+\begin{APACrefauthors}%
+Chiu, C\BHBI Y.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Statistical Refinement of the Q-matrix in Cognitive
+  Diagnosis} {Statistical refinement of the q-matrix in cognitive
+  diagnosis}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Applied Psychological Measurement}{37}{8}{598--618}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+de~la Torre%
+\ \BBA {} Chiu%
+}{%
+de~la Torre%
+\ \BBA {} Chiu%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+de2015general}
+\APACinsertmetastar {%
+de2015general}%
+\begin{APACrefauthors}%
+de~la Torre, J.%
+\BCBT {}\ \BBA {} Chiu, C\BHBI Y.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A General Method of Empirical Q-matrix Validation} {A
+  general method of empirical q-matrix validation}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Psychometrika}{}{}{1--21}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Desmarais%
+\ \BBA {} Naceur%
+}{%
+Desmarais%
+\ \BBA {} Naceur%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+desmarais2013matrix}
+\APACinsertmetastar {%
+desmarais2013matrix}%
+\begin{APACrefauthors}%
+Desmarais, M\BPBI C.%
+\BCBT {}\ \BBA {} Naceur, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A matrix factorization method for mapping items to
+  skills and for enhancing expert-based q-matrices} {A matrix factorization
+  method for mapping items to skills and for enhancing expert-based
+  q-matrices}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Artificial Intelligence in Education} {Artificial
+  intelligence in education}\ (\BPGS\ 441--450).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Desmarais%
+, Xu%
+\BCBL {}\ \BBA {} Beheshti%
+}{%
+Desmarais%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+desmarais2015combining}
+\APACinsertmetastar {%
+desmarais2015combining}%
+\begin{APACrefauthors}%
+Desmarais, M\BPBI C.%
+, Xu, P.%
+\BCBL {}\ \BBA {} Beheshti, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Combining techniques to refine item to skills Q-matrices
+  with a partition tree} {Combining techniques to refine item to skills
+  q-matrices with a partition tree}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Educational Data Mining 2015.} {Educational data mining
+  2015.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Liu%
+, Xu%
+\BCBL {}\ \BBA {} Ying%
+}{%
+Liu%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+liu2012data}
+\APACinsertmetastar {%
+liu2012data}%
+\begin{APACrefauthors}%
+Liu, J.%
+, Xu, G.%
+\BCBL {}\ \BBA {} Ying, Z.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Data-driven learning of Q-matrix} {Data-driven learning
+  of q-matrix}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Applied psychological measurement}{36}{7}{548--564}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Xu%
+\ \BBA {} Desmarais%
+}{%
+Xu%
+\ \BBA {} Desmarais%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+xu2016boosted}
+\APACinsertmetastar {%
+xu2016boosted}%
+\begin{APACrefauthors}%
+Xu, P.%
+\BCBT {}\ \BBA {} Desmarais, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Boosted Decision Tree for Q-matrix Refinement.} {Boosted
+  decision tree for q-matrix refinement.}{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {EDM} {Edm}\ (\BPGS\ 551--555).
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}
