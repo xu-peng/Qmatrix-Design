@@ -35,16 +35,25 @@ Michel C. Desmarais\\
 \maketitle
 
 \begin{abstract}
-In recent years, the identifiability problem of Q-matrix under DINA/DINO model has been proposed and researched. Strict statistical discussion and formulation have been given. One useful result is that under the DINA and DINO models, with Q-matrix, slip and guess being known, the population proportion parameter $p$ is identifiable if and only if Q is complete(meaning it contains all unit vectors). In order to diagnose students, this condition should be used as a basic requirement for Q-matrix design. However, it does not suffice by just using a small Q-matrix which merely satisfies identifiability condition to offer a correct diagnosis for each individual student, particularly because the condition is about the parameters for the whole population. Fortunately, by increasing the number of questions being asked, i.e the number of q-vectors, we can improve the accuracy of estimation on student profiles. The ways to achieve a balance between conciseness and diagnosability of Q-matrix are discussed empirically in this paper.  
+In most contexts of student skills assessment, whether the test material is administered by the teacher or within a learning environment, there is a strong incentive to minimize the number of questions or exercises administered in order to get an accurate assessment.  This minimization objective can be framed as a Q-matrix design problem: given a set of skills to assess and a fixed number of question items, determine the optimal set of items, out of a potentially large pool, that will yield the most accurate assessment.  In recent years, the Q-matrix identifiability under DINA/DINO models has been proposed as a guiding principle for that purpose.  We empirically investigate the extent to which identifiability can serve that purpose. Identifiability of Q-matrices is studied throughout a range of conditions in an effort to measure and understand its relation to student skills assessment.  We compare identifiability to other Q-matrix design principles through simulation studies of skills assessment with both synthetic and real data.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-Q-matrix based models are widely researched during recent years in educational data mining. Among all of them, DINA model is the most used and discussed. Most of these research are focused on one of the 2 following problems. The first one is the Q-matrix validation problem, that is, to improve or validate an expert-given Q-matrix\cite{de2015general, chiu2013statistical, desmarais2013matrix}. The other one is the Q-matrix derivation problem, that is, to directly derive a Q-matrix out of the test result matrix\cite{barnes2010novel, liu2012data, desmarais2015combining, xu2016boosted}. During the investigation of these two problems, a fundamental question has been proposed, the identifiability of model parameters, especially the Q-matrix. Detailed statistical analysis has been made under the DINA/DINO situation, which was first discussed under the situation that there is no slip or guess, and then the case that slip and guess exist but is known, and finally the case that slip and guess is unknown. 
+Q-matrix based models are widely researched during recent years in educational data mining. Among all of them, DINA model is the most used and discussed. Most of these research are focused on one of the 2 following problems. The first one is the Q-matrix validation problem, that is, to improve or validate an expert-given Q-matrix \cite{de2015general, chiu2013statistical, desmarais2013matrix}. The other one is the Q-matrix derivation problem, that is, to directly derive a Q-matrix out of the test result matrix \cite{barnes2010novel, liu2012data, desmarais2015combining, xu2016boosted}. During the investigation of these two problems, a fundamental question has been proposed, the identifiability of model parameters, especially the Q-matrix. Detailed statistical analysis has been made under the DINA/DINO situation, which was first discussed under the situation that there is no slip or guess, and then the case that slip and guess exist but is known, and finally the case that slip and guess is unknown. 
 
-However, how do we use the conditions offered by the discussion to guide our educational test? First, the discussion is centered around the identifiability on Q-matrix, not on the identifiability of students, which is also a critical problem\cite{beck2007identifiability}. Fortunately, for the case slip and guess are known, the identifiability of parameters $p$ are also given. 
+However, how do we use the conditions offered by the discussion to guide our educational test? First, the discussion is centered around the identifiability on Q-matrix, not on the identifiability of students, which is also a critical problem \cite{beck2007identifiability}. Fortunately, for the case slip and guess are known, the identifiability of parameters $p$ are also given. 
 \section{Identifiability}
+
+The general idea behind identifiability is that two or more configurations of model parameters can be considered as equivalent.  Sets of parameters will be considered equivalent if, for example, their likelihood are equal given a data set.  Or, conversely, if they are susceptible to generate data having the same characteristics of interest (see~\citeNP{doroudi2017misidentified}, for more details).
+
+The issue of identifiability for student skills assessment was first raised for the Bayesian Knowledge Tracing (BKT) model by \citeNP{beck2007identifiability} and later discussed by \citeNP{doroudi2017misidentified}, and \citeNP{van2013properties}.  In this paper, we consider the identifiability of the Q-matrix which was studied by \citeNP{xu2015identifiability} \citeNP{qin2015model}.  
+
 \section{Experiment}
+
+
 \subsection{Simulations}
+
+
 \subsubsection{Experiment 1: Comparison of three strategies}
    
 The Q-matrix used are,
@@ -56,57 +65,34 @@ Strategy 2: Repetition of orthogonal arrays.
 Strategy 3: Repetition of full combinations.
 
 
-Q-matrix 1
+\parbox{.5\columnwidth}{
+\hfil Q-matrix 1 \hfil\\
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
 q_2 & 0 & 1 & 0 \\
 q_3 & 0 & 0 & 1 \\
-q_4 & 1 & 0 & 0 \\
-q_5 & 0 & 1 & 0 \\
-q_6 & 0 & 0 & 1 \\
-q_7 & 1 & 0 & 0 \\
-q_8 & 0 & 1 & 0 \\
-q_9 & 0 & 0 & 1 \\
-q_{10} & 1 & 0 & 0 \\
-q_{11} & 0 & 1 & 0 \\
-q_{12} & 0 & 0 & 1 \\
-q_{13} & 1 & 0 & 0 \\
-q_{14} & 0 & 1 & 0 \\
-q_{15} & 0 & 0 & 1 \\
-q_{16} & 1 & 0 & 0 \\
-q_{17} & 0 & 1 & 0 \\
-q_{18} & 0 & 0 & 1 \\
+... & ... & ... & ... &\\
 q_{19} & 1 & 0 & 0 \\
 q_{20} & 0 & 1 & 0 \\
 q_{21} & 0 & 0 & 1 \\
-}
-
-Q-matrix 2
+}}
+\parbox{.5\columnwidth}{
+\hfil Q-matrix 1 \hfil\\
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
 q_2 & 0 & 1 & 0 \\
 q_3 & 0 & 0 & 1 \\
 q_4 & 1 & 1 & 1 \\
-q_5 & 1 & 0 & 0 \\
-q_6 & 0 & 1 & 0 \\
-q_7 & 0 & 0 & 1 \\
-q_8 & 1 & 1 & 1 \\
-q_9 & 1 & 0 & 0 \\
-q_{10} & 0 & 1 & 0 \\
-q_{11} & 0 & 0 & 1 \\
-q_{12} & 1 & 1 & 1 \\
-q_{13} & 1 & 0 & 0 \\
-q_{14} & 0 & 1 & 0 \\
-q_{15} & 0 & 0 & 1 \\
-q_{16} & 1 & 1 & 1 \\
+... & ... & ... & ... &\\
 q_{17} & 1 & 0 & 0 \\
 q_{18} & 0 & 1 & 0 \\
 q_{19} & 0 & 0 & 1 \\
 q_{20} & 1 & 1 & 1 \\
 q_{21} & 1 & 0 & 0 \\
-}
+}}
+
 
 Q-matrix 3(full)
 \kbordermatrix{
@@ -118,13 +104,7 @@ q_4 & 1 & 1 & 0 \\
 q_5 & 1 & 0 & 1 \\
 q_6 & 0 & 1 & 1 \\
 q_7 & 1 & 1 & 1 \\
-q_8 & 1 & 0 & 0 \\
-q_9 & 0 & 1 & 0 \\
-q_{10} & 0 & 0 & 1 \\
-q_{11} & 1 & 1 & 0 \\
-q_{12} & 1 & 0 & 1 \\
-q_{13} & 0 & 1 & 1 \\
-q_{14} & 1 & 1 & 1 \\
+... & ... & ... & ... &\\
 q_{15} & 1 & 0 & 0 \\
 q_{16} & 0 & 1 & 0 \\
 q_{17} & 0 & 0 & 1 \\
