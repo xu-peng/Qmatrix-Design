@@ -1,4 +1,4 @@
-\documentclass{edm_template}
+\documentclass{edm_template-no-copyright}
 %\documentclass[11pt,twocolumn]{article}
 \usepackage{amsmath}
 %\usepackage{graphicx}
@@ -35,25 +35,39 @@ Michel C. Desmarais\\
 \maketitle
 
 \begin{abstract}
-In most contexts of student skills assessment, whether the test material is administered by the teacher or within a learning environment, there is a strong incentive to minimize the number of questions or exercises administered in order to get an accurate assessment.  This minimization objective can be framed as a Q-matrix design problem: given a set of skills to assess and a fixed number of question items, determine the optimal set of items, out of a potentially large pool, that will yield the most accurate assessment.  In recent years, the Q-matrix identifiability under DINA/DINO models has been proposed as a guiding principle for that purpose.  We empirically investigate the extent to which identifiability can serve that purpose. Identifiability of Q-matrices is studied throughout a range of conditions in an effort to measure and understand its relation to student skills assessment.  We compare identifiability to other Q-matrix design principles through simulation studies of skills assessment with both synthetic and real data.
+In most contexts of student skills assessment, whether the test material is administered by the teacher or within a learning environment, there is a strong incentive to minimize the number of questions or exercises administered in order to get an accurate assessment.  This minimization objective can be framed as a Q-matrix design problem: given a set of skills to assess and a fixed number of question items, determine the optimal set of items, out of a potentially large pool, that will yield the most accurate assessment.  In recent years, the Q-matrix identifiability under DINA/DINO models has been proposed as a guiding principle for that purpose.  We empirically investigate the extent to which identifiability can serve that purpose. Identifiability of Q-matrices is studied throughout a range of conditions in an effort to measure and understand its relation to student skills assessment.  We compare identifiability to other Q-matrix design principles through simulation studies of skills assessment with synthetic data.  Results show that identifiability is an important factor that determines the capacity of a Q-matrix to lead to accurate skills assessment with the least number of questions.
 \end{abstract}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+
+% RQ: In this experiment, we only look at batch testing: assessment is based on the whole set of items.  But in adaptive testing, the choice of questions will depend on the current skills assessment.  Are the rules of identifiability for batch assessment the same as for adaptive testing?
+
+In adaptive testing, the goal is to ask the question items that are aligned with the student's estimated assessment and that will bring the most information, thereby increasing accuracy and reducing test length.  In a single skill framework, such as Item Response Theory (IRT), this goal is relatively well understood and straightforward. But in the case where multiple skills must be assessed simultaneously and where items can involve more than a single skill, the process is much more complex (see for eg.\ \citeNP{vie2017review}).
+
+This paper addresses the relationship between item to skills mapping and test efficiency.  We refer to this mapping as a Q-matrix. A Q-matrix is similar to an adjency matrix that maps items to latent skills involved in order for the student to succeed at the items.  An item can represent a question, an exercise, or any task that can have a positive or negative outcome.  In the conjunctive version of the Q-matrix, all of the matrix 1-cells corresponding to a line item are required in order to lead to a success.  Whereas the disjunctive model prescribes that a single cell is sufficient to lead to a success, and the compensatory model is a mid-way version where each 1-cell contributes to the chances of success.
+
 Q-matrix based models are widely researched during recent years in educational data mining. Among all of them, DINA model is the most used and discussed. Most of these research are focused on one of the 2 following problems. The first one is the Q-matrix validation problem, that is, to improve or validate an expert-given Q-matrix \cite{de2015general, chiu2013statistical, desmarais2013matrix}. The other one is the Q-matrix derivation problem, that is, to directly derive a Q-matrix out of the test result matrix \cite{barnes2010novel, liu2012data, desmarais2015combining, xu2016boosted}. During the investigation of these two problems, a fundamental question has been proposed, the identifiability of model parameters, especially the Q-matrix. Detailed statistical analysis has been made under the DINA/DINO situation, which was first discussed under the situation that there is no slip or guess, and then the case that slip and guess exist but is known, and finally the case that slip and guess is unknown. 
 
 However, how do we use the conditions offered by the discussion to guide our educational test? First, the discussion is centered around the identifiability on Q-matrix, not on the identifiability of students, which is also a critical problem \cite{beck2007identifiability}. Fortunately, for the case slip and guess are known, the identifiability of parameters $p$ are also given. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Identifiability}
 
-The general idea behind identifiability is that two or more configurations of model parameters can be considered as equivalent.  Sets of parameters will be considered equivalent if, for example, their likelihood are equal given a data set.  Or, conversely, if they are susceptible to generate data having the same characteristics of interest (see~\citeNP{doroudi2017misidentified}, for more details).
+The general idea behind identifiability is that two or more configurations of model parameters can be considered as equivalent.  Sets of parameters will be considered equivalent if, for example, their likelihood are equal given a data set.  Or, conversely, if the parameters are part of a generative model, two sets of equivalent parameters would tenerate data having the same characteristics of interest, in particular equal joint probability distributions (see~\citeNP{doroudi2017misidentified}, for more details).
 
 The issue of identifiability for student skills assessment was first raised for the Bayesian Knowledge Tracing (BKT) model by \citeNP{beck2007identifiability} and later discussed by \citeNP{doroudi2017misidentified}, and \citeNP{van2013properties}.  In this paper, we consider the identifiability of the Q-matrix which was studied by \citeNP{xu2015identifiability} \citeNP{qin2015model}.  
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experiment}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Simulations}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Experiment 1: Comparison of three strategies}
    
 The Q-matrix used are,
@@ -66,7 +80,9 @@ Strategy 3: Repetition of full combinations.
 
 
 \parbox{.5\columnwidth}{
-\hfil Q-matrix 1 \hfil\\
+\centering
+Q-matrix 1\\
+\vspace*{-1ex}
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
@@ -76,9 +92,10 @@ q_3 & 0 & 0 & 1 \\
 q_{19} & 1 & 0 & 0 \\
 q_{20} & 0 & 1 & 0 \\
 q_{21} & 0 & 0 & 1 \\
-}}
-\parbox{.5\columnwidth}{
-\hfil Q-matrix 2 \hfil\\
+}
+\vspace*{2ex}
+{Q-matrix 2}\\
+\vspace*{-1ex}
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
@@ -92,9 +109,9 @@ q_{19} & 0 & 0 & 1 \\
 q_{20} & 1 & 1 & 1 \\
 q_{21} & 1 & 0 & 0 \\
 }}
-
-
-Q-matrix 3(full)
+\parbox{.5\columnwidth}{
+\centering
+{Q-matrix 3}\\{(all~combinations)} \\
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
@@ -112,8 +129,9 @@ q_{18} & 1 & 1 & 0 \\
 q_{19} & 1 & 0 & 1 \\
 q_{20} & 0 & 1 & 1 \\
 q_{21} & 1 & 1 & 1 \\
-}
+}}
 
+%%%%
 \subsubsection{Experiment 2: Find best configuration}
 For a given pool of q-vectors to choose from and an integer indicating the number of questions, we need to know the number of possible configurations of Q-matrices we have. This is equivalent to a classical combinatorial problem, that is, to allocate distinguished balls(q-vectors) to indistinguished cells(questions). It can be easily computed by combinatorial coefficients and interpreted by using stars and bars methods. For example, if we have 7 q-vectors, and 4 questions to allocate them, then we have ${{4+7-1}\choose {7-1}}=210$ possible configurations. For each configuration, we will calculate the MAP estimation for the category of each student, and evaluate the total accuracy.
 
