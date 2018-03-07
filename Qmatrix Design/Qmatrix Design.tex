@@ -48,14 +48,14 @@ Consider a set of items intended to assess a student's mastery over a set of ski
 
 This paper addresses this question, with the general objective of designing a test that will bring the most accurate assessment of a student's skill mastery state with the least number of questions items.  
 
-The investigation is framed within the DINA model, where que question items can involve one or more skills, and where all skills are required to succeed the question, but a success can still occur through a guessing factor, and failure can also occur through a slip factor.  
+The investigation is framed within the DINA model, where question items can involve one or more skills, and where all skills are required to succeed the question, but a success can still occur through a guessing factor, and failure can also occur through a slip factor.  
 
 %In adaptive testing, the goal is to ask the question items that are aligned with the student's estimated assessment and that will bring the most information, thereby increasing accuracy and reducing test length.  In a single skill framework, such as Item Response Theory (IRT), this goal is relatively well understood and straightforward. But in the case where multiple skills must be assessed simultaneously and where items can involve more than a single skill, the process is much more complex (see for eg.\ \citeNP{vie2017review}).  Assessment necessarily relies on how items relate to the skills we wish to assess.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Q-matrix, the DINA model, and identifiability}
 
-This mapping of items to skills is generally referred to as a Q-matrix, whrere items are mapped to latent skills whose mastery is deemed necessary order for the student to succeed at the items.  An item can represent a question, an exercise, or any task that can have a positive or negative outcome.  In the DINA model, the conjunctive version of the Q-matrix is adopted and all of the matrix 1-cells corresponding to a line item are required in order to lead to a success.  
+This mapping of items to skills is generally referred to as a Q-matrix, where items are mapped to latent skills whose mastery is deemed necessary in order for the student to succeed at the items.  An item can represent a question, an exercise, or any task that can have a positive or negative outcome.  In the DINA model, the conjunctive version of the Q-matrix is adopted and all of the matrix 1-cells corresponding to a line item are required in order to lead to a success.  
 
 In the last decade, considerable research has been devoted to data driven Q-matrix derivation.  The objective is to derive a Q-matrix out of the test result matrix \cite{barnes2010novel, liu2012data, desmarais2015combining, xu2016boosted}.  Another line of research on Q-matrices has been devoted to refine or to validate an expert-given Q-matrix \cite{de2015general, chiu2013statistical, desmarais2013matrix}.
 
@@ -69,7 +69,7 @@ Identifiability is a general concept for statistical models. Its formal definiti
 
 \textbf{Definition} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is identifiable if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
 
-For DINA model, its model parameters $\theta = \{Q, p, s, g\}$, in which $Q$ is the Q-matrix, of which each row is a q-vector, indicating what skills are needed to answer the corresponding item. $p$ is a the categorical distribution parameter for the whole population. That is, it indicates the probability of a student belongs to each profile category. For example, in a 3-skill case, there are 8 categories for students to belong to, and the 8-component probability vector of student belongs to each of these categories is the model parameter $p$. At last, $s$ and $g$ are both vectors denoting the slip and guess of each item. 
+For DINA model, its model parameters $\theta = \{Q, p, s, g\}$, in which $Q$ is the Q-matrix, of which each row is a q-vector, indicating what skills are needed to answer the corresponding item. $p$ is the categorical distribution parameter for the whole population. That is, it indicates the probability of a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of student belongs to each of these categories is the model parameter $p$. At last, $s$ and $g$ are both vectors denoting the slip and guess of each item. 
 
 The identifiability of all parameters in DINA model have been carefully researched and several theorems are given \cite{xu2015identifiability}. But for Q-matrix design problem researched in this paper, we mainly need to ensure that the model parameter $p$ is identifiable, meaning that we can distinguish different profile categories. Fortunately, for the case when $s$ and $g$ are known, the requirement is easy to be satisfied, since it only requires the Q-matrix to be \textit{complete}.
 
@@ -86,7 +86,7 @@ And our whole research is based on the proposition below,
 
 
 \section{Experiment}
-The Q-matrix design problem essentially is an optimization problem. Basically, we have a pool of Q-matrices, and each of them is formed by a selection with replacement from a pool of q-vectors. Each Q-matrix will offer some capacity to diagnose students, and measured by a loss function. What we want to is choose a Q-matrix that minimize the loss function.
+The Q-matrix design problem essentially is an optimization problem. Basically, we have a pool of Q-matrices, and each of them is formed by a selection with replacement from a pool of q-vectors. Each Q-matrix will offer some capacity to diagnose students, and measured by a loss function. What we want to do is to choose a Q-matrix that minimize the loss function.
 
 In our experiments, to use Q-matrix to diagnose students under DINA model, we follow a Bayesian framework. First, we use one-hot encoding to denote all profile categories. For example, in 3-skill case, all the 8 profile patterns in its original form is,
 
@@ -107,7 +107,7 @@ Then, we set the prior of each student profile to be
 
 $p_0=(1/8,1/8,1/8,1/8,1/8,1/8,1/8,1/8)$, 
 
-and posterior will be calculated after answering each question. The posterior profile of the student is 
+and posterior will be calculated after answering each question. The posterior profile of the student has the form 
 
 $\hat{p} = (m_1,m_2,m_3,m_4,m_5,m_6,m_7,m_8)$, 
 
@@ -116,11 +116,12 @@ and then we calculate the loss between this posterior and the true profile $p_{t
 In short, for any Q-matrix configuration, the loss function is defined as
 $ loss(Q) = \sum_{students} ||\hat{p} - p_{true}||^2$
 
-In our experiments, we consider 3-skill case and 4-skill case respectively. For 3-skill case, we test with $N=200$ students, with 25 students falling into each of 8 categories. For 4-skill case, we test with $N=400$ students, with 25 students falling into each of 16 categories. We use $J4$ to denote the number of questions and $k$ to denote the number of involved skills.
+In our experiments, we consider the 3-skill case and 4-skill case respectively. For 3-skill case, we test with $N=200$ students, with 25 students falling into each of 8 categories. For 4-skill case, we test with $N=400$ students, with 25 students falling into each of 16 categories. We use $J$ to denote the number of questions and $k$ to denote the number of involved skills.
+
 \subsection{Experiment 1: Comparison of three strategies}
 In the first experiment, we compare three different Q-matrix design strategies. They are all based on repetition of a specific pool of q-vectors.
 
-Strategy 1: Using the identifiability condition. Only repeatedly using the vectors $\{e_{i}:i=1,...k\}$.Q-matrix used in this strategy is denoted as Q-matrix 1.
+Strategy 1: Using the identifiability condition by only repeatedly using the vectors $\{e_{i}:i=1,...k\}$. Q-matrix used in this strategy is denoted as Q-matrix 1.
 
 Strategy 2: Using the vectors $\{e_{i}:i=1,...k\}$ plus a all-one vector $(1,1,1)$ or $(1,1,1,1)$. This is inspired by orthogonal array design, which is a commonly seen design of experiments \cite{montgomery2017design}. Q-matrix used in this strategy is denoted as Q-matrix 2.
 
@@ -183,7 +184,7 @@ q_{21} & 1 & 1 & 1 \\
 The 4-skill case is similar, which is omitted here. Results of these two cases are shown in Figure  \ref{fig:ComparisonThreeSkill} and Figure \ref{fig:ComparisonFourSkill}.
 
 \subsection{Experiment 2: Find best configuration}
-The second experiment takes the brutal force way. We directly examine all possible Q-matrix configurations. First, for a given pool of q-vectors to choose from and an integer indicating the number of questions, we need to know the number of possible configurations of Q-matrices we have. This is equivalent to a classical combinatorial problem, that is, to allocate distinguished balls(q-vectors) to indistinguished cells(questions). It can be easily computed by combinatorial coefficients and interpreted by using stars and bars methods. For example, in 3-skill case, we have 7 q-vectors, and if we have 4 questions to allocate them, then we have ${{4+7-1}\choose {7-1}}=210$ possible configurations. This number grows up sharply as number of questions increases or number of patterns increases. To compare, in 4-skill case, and if we have 5 questions to allocate them, then we have ${{5+15-1}\choose {15-1}}=11628$ possible configurations. 
+The second experiment takes the brutal force way. We directly examine all possible Q-matrix configurations. First, for a given pool of q-vectors to choose from and an integer indicating the number of questions, we need to know the number of possible configurations of Q-matrices we have. This is equivalent to a classical combinatorial problem, that is, to allocate distinguished balls(q-vectors) to indistinguished cells(questions). It can be easily computed by combinatorial coefficients and interpreted by using stars and bars methods. For example, in 3-skill case, we have 7 q-vectors, and if we have 4 questions to allocate them, then we have ${{4+7-1}\choose {7-1}}=210$ possible configurations. This number grows up sharply as number of questions increases or number of patterns increases. To compare, in 4-skill case, if we have 5 questions to allocate them, then we have ${{5+15-1}\choose {15-1}}=11628$ possible configurations. 
 
 For each configuration, we will calculate the MAP estimation for all categories of each student, and compare with the one-hot encoding for their true categories. The total loss is reported as the performance index.
 
@@ -292,14 +293,16 @@ Type III: Incomplete Q-matrix.
 
 Type I and Type II Q-matrices performs the same when slip and guess are low(Figure\ref{fig:theta001J4ThreeSkill}, Figure \ref{fig:theta001J5FourSkill}), but when they get higher, Type II Q-matrices show a better performance(Figure \ref{fig:theta021J4ThreeSkill}, Figure\ref{fig:theta02J5FourSkill}).
 
-However, when more questions are involved in high slip and guess, the performance becomes more tricky. Therefore, we again consider more subtypes. In 3-skill case for 8 questions, we consider two subtypes below. 
+However, when more questions are involved in high slip and guess, the performance becomes more tricky. Therefore, we again consider more subtypes. In 3-skill case for 8 questions, we consider three subtypes below. 
 
 Subtype 1: Q-matrix contains each component of $\{e_{i}:i=1,...k\}$ at least twice. 
 
 Subtype 2: Other situation(e.g A complete Q-matrix but all the other vectors are just repeated $e_1$)
 .
 
-From Figure \ref{fig:theta03J8ThreeSkill} we can see that the subtype 1(denoted by triangle) shows better performance than subtype 2, meaning that repeating the whole complete Q-matrix is a better strategy just like the strategy 1 we used in experiment 1.
+Subtype 3: Q-matrix contains all q-vectors.
+
+From Figure \ref{fig:theta03J8ThreeSkill} we can see that the subtype 1(denoted by triangle) shows better performance than subtype 2, meaning that repeating the whole complete Q-matrix is a better strategy just like the strategy 1 we used in experiment 1. Subtype 3 corresponds to the strategy 3 in experiment 1, it has only 7 possible configurations in 8-question setting and we can see that they do not perform well.
 
 Therefore, we argue that the best Q-matrix design is to use only the vectors $\{e_{i}:i=1,...k\}$ since it offers quicker convergence speed (as shown in experiment 1) and better robustness against slip and guess(as shown both in experiment 1 and 2).
 
