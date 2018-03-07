@@ -28,6 +28,7 @@ As = as.matrix(As)
 # Deterministic Generation
 CLs = rep(1:8,25)
 Profiles = t(matrix(rep(t(As), 125), 3,200))
+CLs.onehot <- t(matrix(rep(diag(1,8), 125), 8,200))
 
 # Experiments 1: Three strategies
 # Q.complete is consisted of all possible q-vectors, for 3 skills, there all 7 q-vectors
@@ -49,7 +50,7 @@ Q.3 <- Q.complete[rep(1:7,3),]
 
 
 # Function component() 
-component <- function(Q.complete, CLs, As, Profiles, theta){
+component <- function(Q.complete, CLs.onehot, As, Profiles, theta){
   result <- matrix(0, 100, nrow(Q.complete))
   for (i in 1:100){
     for (J in 1:nrow(Q.complete)){
@@ -78,9 +79,14 @@ component <- function(Q.complete, CLs, As, Profiles, theta){
       I2 <- (ss^t(idealResponse) * (1-gs)^t(1-idealResponse))
       
       logLikelihood <- t(apply(gen$Y, 1, function(m) colSums(m*log(I1) + (1-m)*log(I2))))
+      toProbability <- exp(logLikelihood)
+      # Since prior is uniform, we directly calulate the posterior
+      posterior <- toProbability/rowSums(toProbability)
+      result[i,J] <- sum((posterior - CLs.onehot)^2)
       
-      MLE <- apply(logLikelihood,1,which.max)
-      result[i,J] <- sum(MLE == CLs)
+      # MLE <- apply(logLikelihood,1,which.max)
+      # result[i,J] <- sum(MLE == CLs)
+      
     }
   }
   return(result)
@@ -89,27 +95,27 @@ component <- function(Q.complete, CLs, As, Profiles, theta){
 # Experiment1 Implementation
 set.seed(100)
 toWrite1 <- sapply(c(0.01,0.05,0.1,0.2,0.3), function(i){
-              myResult <- component(Q.1, CLs, As, Profiles, theta = i)
+              myResult <- component(Q.1, CLs.onehot, As, Profiles, theta = i)
               return(colSums(myResult)/N)
               })
-write(toWrite1, "Strategy1.txt")
+write(toWrite1, "LossStrategy1.txt")
 
 toWrite2 <- sapply(c(0.01,0.05,0.1,0.2,0.3), function(i){
-  myResult <- component(Q.2, CLs, As, Profiles, theta = i)
+  myResult <- component(Q.2, CLs.onehot, As, Profiles, theta = i)
   return(colSums(myResult)/N)
 })
-write(toWrite2, "Strategy2.txt")
+write(toWrite2, "LossStrategy2.txt")
 
 toWrite3 <- sapply(c(0.01,0.05,0.1,0.2,0.3), function(i){
-  myResult <- component(Q.3, CLs, As, Profiles, theta = i)
+  myResult <- component(Q.3, CLs.onehot, As, Profiles, theta = i)
   return(colSums(myResult)/N)
 })
-write(toWrite3, "Strategy3.txt")
+write(toWrite3, "LossStrategy3.txt")
 
 # Draw Graph for experiment 1
-t1 <- matrix(scan("Strategy1.txt"), 21, 5)
-t2 <- matrix(scan("Strategy2.txt"), 24, 5)[1:21,]
-t3 <- matrix(scan("Strategy3.txt"), 21, 5)
+t1 <- matrix(scan("LossStrategy1.txt"), 21, 5)
+t2 <- matrix(scan("LossStrategy2.txt"), 24, 5)[1:21,]
+t3 <- matrix(scan("LossStrategy3.txt"), 21, 5)
 
 t1 <- cbind(1,c(1:21),t1)
 t2 <- cbind(2,c(1:21),t2)
@@ -126,9 +132,9 @@ require(ggplot2)
 d$strategy <- as.factor(d$strategy)
 
 g <- ggplot(d, aes(configuration,value, shape=slipAndGuess, col = strategy)) + 
-  geom_point()+geom_line()+labs(x = "Number of questions", y = "Toal Accuracy")
+  geom_point()+geom_line()+labs(x = "number of questions", y = "loss")
 
-tikz(file = "StrategyComparison.tex", width = 4, height = 3)
+tikz(file = "LossStrategyComparison.tex", width = 4, height = 3)
 print(g)
 dev.off()
 
@@ -145,6 +151,95 @@ getIndex <- function(n,k){
   })
   return(result)
 }
+
+getAllAccuracy<- function(n,k){
+  allIndex <- getIndex(n,k)
+  # allAccurcy <- apply(allIndex, 2, getAccuracy)
+  allAccuracy <- foreach(a = split(allIndex, col(allIndex)), 
+                         .combine = cbind, 
+                         .export=c('getAccuracy',
+                                   'Q.complete',
+                                   'As',
+                                   'ss',
+                                   'gs',
+                                   'getSingleAccuracy',
+                                   'DINAsim',
+                                   'Profiles',
+                                   'CLs.onehot')) %dopar% {getAccuracy(a)}
+  allAccuracy
+}
+
+getSingleAccuracy <- function(i,Q){
+  # Simulate data under DINA model
+  gen = DINAsim(Profiles,Q,ss,gs)
+  
+  logLikelihood <- t(apply(gen$Y, 1, function(m) colSums(m*log(I1) + (1-m)*log(I2))))
+  # Maximum Likelihood Estimation
+  # MLE <- apply(logLikelihood,1,which.max)
+  # return(sum(MLE==CLs))
+  
+  toProbability <- exp(logLikelihood)
+  # Since prior is uniform, we directly calulate the posterior
+  posterior <- toProbability/rowSums(toProbability)
+  return(sum((posterior - CLs.onehot)^2))
+}
+
+getAccuracy <- function(myIndex){
+  Q <- Q.complete[myIndex,]
+  
+  # Get ideal reponse 
+  toCompare <- As %*% t(Q)
+  correct <- t(matrix(rep(apply(Q,1,function(x) sum(x^2)), nrow(As)), nrow(Q), nrow(As)))
+  idealResponse <- apply(toCompare == correct,2,as.integer)
+  
+  # Calculate logLikelihood
+  I1 <<- ((1-ss)^t(idealResponse) * (gs)^t(1-idealResponse))
+  I2 <<- (ss^t(idealResponse) * (1-gs)^t(1-idealResponse))
+  
+  avg <- mean(sapply(1:100, getSingleAccuracy, Q=Q))
+  return(c(avg, myIndex))
+}
+
+# Parallel computing
+library(foreach)
+library(doParallel)
+cl <- makeCluster(3)
+registerDoParallel(cl)
+
+set.seed(1)
+theta = 0.01
+J = 9
+ss = gs = rep(theta,J)
+start <- Sys.time()
+myResult <- getAllAccuracy(J,7)
+end <- Sys.time()
+end - start
+write(myResult, paste0("LossBestConfig_theta",theta,"_J",J,".txt"))
+
+
+
+# Factoring
+# We divide all Q-matrix in 4 categories
+# 1 - Complete Q-matrix using only boolean unit q-vectors
+# 2 - COmplete Q-matrix using at least one other q-vector
+# 3 - Incomplete Q-matrix containing only 1 type q-vector
+# 4 - Incomplete Q-matrix containing only 2 type q-vectors
+myResult <- matrix(scan("LossBestConfig_theta0.3_J8.txt"),9,3003)
+allIndex <- getIndex(8,7)
+myFactor <- factor(rep(5,ncol(myResult)), levels = c(1:5))
+myIndex1 <- apply(allIndex,2,function(m) all(c(1,2,3) %in% m))
+myFactor[myIndex1] <- 1
+myIndex2 <- apply(allIndex,2,function(m) {all(c(1,2,3) %in% m) & any(c(4,5,6,7) %in% m)})
+myFactor[myIndex2] <- 2
+myIndex3 <- apply(allIndex,2,function(m) length(table(m))==1)
+myFactor[myIndex3] <- 3
+myIndex4 <- apply(allIndex,2,function(m) length(table(m))==2)
+myFactor[myIndex4] <- 4
+
+myData <- data.frame(configuration = 1:ncol(myResult), type = myFactor, loss = myResult[1,])
+
+ggplot(myData, aes(configuration, loss, color = type)) + geom_point() +
+  scale_color_manual(labels = c("I", "II","III","IV","V"), values = c("red", "blue", "black", "purple", "turquoise"))
 
 require(data.table)
 require(reshape2)
