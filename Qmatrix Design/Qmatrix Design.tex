@@ -1,7 +1,7 @@
-\documentclass{edm_template-no-copyright}
+\documentclass{edm_template}
 %\documentclass[11pt,twocolumn]{article}
 \usepackage{amsmath}
-%\usepackage{graphicx}
+\usepackage{graphicx}
 %\usepackage{xcolor}
 %\usepackage{svg}
 \usepackage{tikz}
@@ -35,54 +35,47 @@ Michel C. Desmarais\\
 \maketitle
 
 \begin{abstract}
-In most contexts of student skills assessment, whether the test material is administered by the teacher or within a learning environment, there is a strong incentive to minimize the number of questions or exercises administered in order to get an accurate assessment.  This minimization objective can be framed as a Q-matrix design problem: given a set of skills to assess and a fixed number of question items, determine the optimal set of items, out of a potentially large pool, that will yield the most accurate assessment.  In recent years, the Q-matrix identifiability under DINA/DINO models has been proposed as a guiding principle for that purpose.  We empirically investigate the extent to which identifiability can serve that purpose. Identifiability of Q-matrices is studied throughout a range of conditions in an effort to measure and understand its relation to student skills assessment.  We compare identifiability to other Q-matrix design principles through simulation studies of skills assessment with synthetic data.  Results show that identifiability is an important factor that determines the capacity of a Q-matrix to lead to accurate skills assessment with the least number of questions.
+In most contexts of student skills assessment, whether the test material is administered by the teacher or within a learning environment, there is a strong incentive to minimize the number of questions or exercises administered in order to get an accurate assessment.  This minimization objective can be framed as a Q-matrix design problem: given a set of skills to assess and a fixed number of question items, determine the optimal set of items, out of a potentially large pool, that will yield the most accurate assessment.  In recent years, the Q-matrix identifiability under DINA/DINO models has been proposed as a guiding principle for that purpose.  We empirically investigate the extent to which identifiability can serve that purpose. Identifiability of Q-matrices is studied throughout a range of conditions in an effort to measure and understand its relation to student skills assessment.  We compare identifiability to other Q-matrix design principles through simulation studies of skills assessment with both synthetic and real data.
 \end{abstract}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+Q-matrix based models are widely researched during recent years in educational data mining. Among all of them, DINA model is the most used and discussed. Most of these research are focused on one of the 2 following problems. The first one is the Q-matrix validation problem, that is, to improve or validate an expert-given Q-matrix \cite{de2015general, chiu2013statistical, desmarais2013matrix}. The other one is the Q-matrix derivation problem, that is, to directly derive a Q-matrix out of the test result matrix \cite{barnes2010novel, liu2012data, desmarais2015combining, xu2016boosted}. During the investigation of these two problems, a fundamental question has been proposed, the identifiability of model parameters, especially the Q-matrix. Detailed statistical analysis has been made under the DINA/DINO situation, which was first discussed under the situation that slip and guess is zero\cite{chiu2009cluster}, and then the case that slip and guess exist but is known\cite{liu2013theory}, and finally the case that slip and guess is unknown\cite{chen2015statistical}. 
 
-% RQ: In this experiment, we only look at batch testing: assessment is based on the whole set of items.  But in adaptive testing, the choice of questions will depend on the current skills assessment.  Are the rules of identifiability for batch assessment the same as for adaptive testing?
-
-In adaptive testing, the goal is to ask the question items that are aligned with the student's estimated assessment and that will bring the most information, thereby increasing accuracy and reducing test length.  In a single skill framework, such as Item Response Theory (IRT), this goal is relatively well understood and straightforward. But in the case where multiple skills must be assessed simultaneously and where items can involve more than a single skill, the process is much more complex (see for eg.\ \citeNP{vie2017review}).
-
-This paper addresses the relationship between item to skills mapping and test efficiency.  We refer to this mapping as a Q-matrix. A Q-matrix is similar to an adjency matrix that maps items to latent skills involved in order for the student to succeed at the items.  An item can represent a question, an exercise, or any task that can have a positive or negative outcome.  In the conjunctive version of the Q-matrix, all of the matrix 1-cells corresponding to a line item are required in order to lead to a success.  Whereas the disjunctive model prescribes that a single cell is sufficient to lead to a success, and the compensatory model is a mid-way version where each 1-cell contributes to the chances of success.
-
-Q-matrix based models are widely researched during recent years in educational data mining. Among all of them, DINA model is the most used and discussed. Most of these research are focused on one of the 2 following problems. The first one is the Q-matrix validation problem, that is, to improve or validate an expert-given Q-matrix \cite{de2015general, chiu2013statistical, desmarais2013matrix}. The other one is the Q-matrix derivation problem, that is, to directly derive a Q-matrix out of the test result matrix \cite{barnes2010novel, liu2012data, desmarais2015combining, xu2016boosted}. During the investigation of these two problems, a fundamental question has been proposed, the identifiability of model parameters, especially the Q-matrix. Detailed statistical analysis has been made under the DINA/DINO situation, which was first discussed under the situation that there is no slip or guess, and then the case that slip and guess exist but is known, and finally the case that slip and guess is unknown. 
-
-However, how do we use the conditions offered by the discussion to guide our educational test? First, the discussion is centered around the identifiability on Q-matrix, not on the identifiability of students, which is also a critical problem \cite{beck2007identifiability}. Fortunately, for the case slip and guess are known, the identifiability of parameters $p$ are also given. 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+However, how do we use the conditions offered by the discussion to guide our educational test? First, the discussion is centered around the identifiability on Q-matrix, not on the identifiability of students, which is also a critical problem \cite{beck2007identifiability}. Fortunately, for the case slip and guess are known, the identifiability of the parameters $p$ are also given\cite{chen2015statistical}.  
 \section{Identifiability}
 
-The general idea behind identifiability is that two or more configurations of model parameters can be considered as equivalent.  Sets of parameters will be considered equivalent if, for example, their likelihood are equal given a data set.  Or, conversely, if the parameters are part of a generative model, two sets of equivalent parameters would tenerate data having the same characteristics of interest, in particular equal joint probability distributions (see~\citeNP{doroudi2017misidentified}, for more details).
+The general idea behind identifiability is that two or more configurations of model parameters can be considered as equivalent.  Sets of parameters will be considered equivalent if, for example, their likelihood are equal given a data set.  Or, conversely, if they are susceptible to generate data having the same characteristics of interest (see~\citeNP{doroudi2017misidentified}, for more details).
 
 The issue of identifiability for student skills assessment was first raised for the Bayesian Knowledge Tracing (BKT) model by \citeNP{beck2007identifiability} and later discussed by \citeNP{doroudi2017misidentified}, and \citeNP{van2013properties}.  In this paper, we consider the identifiability of the Q-matrix which was studied by \citeNP{xu2015identifiability} \citeNP{qin2015model}.  
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Identifiability of model parameters is a general concept for statistical models, its general definition is,
+
+\textbf{Definition} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is identifiable if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
+
+However, for Q-matrix related model, since exchanging columns does not yield an essentially different Q-matrix. During the research of \citeA{xu2015identifiability}, the identifiability of Q-matrix has been redefined.
+
+\textbf{Definition} \cite{xu2015identifiability} We write $Q \sim Q^{\prime}$ if and only if $Q$ and $Q^{\prime}$ have identical column vectors that can be arranged in different orders. We say that $Q$ is identifiable if there exists an estimator $\hat{Q}$ such that $\lim_{N\to\infty} P(\hat{Q} \sim Q) = 1$.
+
+\textbf{Definition} \cite{xu2015identifiability}  The matrix $Q$ is complete meaning that ${{e_{i}:i=1,...k}} \subset R_{Q}$, where $R_{Q}$ is the set of row vectors of $Q$ and $e_{i}$ is a row vector such that the $i$-th element is one and the rest are zero.
+
+\textbf{Proposition} \cite{xu2015identifiability} Under the DINA and DINO models, with $Q$, $s$ and $g$ being known, the population proportional parameter $p$ is identifiable if and only if $Q$ is complete.
+
 \section{Experiment}
+All experiments consider the situation that slip and guess are already known.
 
+\subsection{Experiment 1: Comparison of three strategies}
+In this experiment, we compare three different Q-matrix design strategies. They are all based on repetition of a pool of q-vectors.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Simulations}
+Strategy 1: Using the identifiability condition. Only repeated using the vectors ${e_{i}:i=1,...k}$.Q-matrix used in this strategy is denoted as Q-matrix 1.
 
+Strategy 2: Using the vectors ${e_{i}:i=1,...k}$ plus a all-one vector $(1,1,1)$ or $(1,1,1,1)$. In this way it forms an orthogonal array, which is a commonly seen design of experiments. Q-matrix used in this strategy is denoted as Q-matrix 2.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Experiment 1: Comparison of three strategies}
-   
-The Q-matrix used are,
+Strategy 3: Repeated using all q-vectors.Q-matrix used in this strategy is denoted as Q-matrix 3.
 
-Strategy 1: Repetition of $e_j$, or in other words, the identifiability conditions.
-
-Strategy 2: Repetition of orthogonal arrays.
-
-Strategy 3: Repetition of full combinations.
-
+For the three skill case, all these three Q-matrices have been shown below. 
 
 \parbox{.5\columnwidth}{
-\centering
-Q-matrix 1\\
-\vspace*{-1ex}
+\hfil Q-matrix 1 \hfil\\
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
@@ -92,10 +85,9 @@ q_3 & 0 & 0 & 1 \\
 q_{19} & 1 & 0 & 0 \\
 q_{20} & 0 & 1 & 0 \\
 q_{21} & 0 & 0 & 1 \\
-}
-\vspace*{2ex}
-{Q-matrix 2}\\
-\vspace*{-1ex}
+}}
+\parbox{.5\columnwidth}{
+\hfil Q-matrix 2 \hfil\\
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
@@ -109,9 +101,9 @@ q_{19} & 0 & 0 & 1 \\
 q_{20} & 1 & 1 & 1 \\
 q_{21} & 1 & 0 & 0 \\
 }}
-\parbox{.5\columnwidth}{
-\centering
-{Q-matrix 3}\\{(all~combinations)} \\
+
+
+Q-matrix 3
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
@@ -129,15 +121,15 @@ q_{18} & 1 & 1 & 0 \\
 q_{19} & 1 & 0 & 1 \\
 q_{20} & 0 & 1 & 1 \\
 q_{21} & 1 & 1 & 1 \\
-}}
+}
 
-%%%%
-\subsubsection{Experiment 2: Find best configuration}
-For a given pool of q-vectors to choose from and an integer indicating the number of questions, we need to know the number of possible configurations of Q-matrices we have. This is equivalent to a classical combinatorial problem, that is, to allocate distinguished balls(q-vectors) to indistinguished cells(questions). It can be easily computed by combinatorial coefficients and interpreted by using stars and bars methods. For example, if we have 7 q-vectors, and 4 questions to allocate them, then we have ${{4+7-1}\choose {7-1}}=210$ possible configurations. For each configuration, we will calculate the MAP estimation for the category of each student, and evaluate the total accuracy.
+\subsection{Experiment 2: Find best configuration}
+For a given pool of q-vectors to choose from and an integer indicating the number of questions, we need to know the number of possible configurations of Q-matrices we have. This is equivalent to a classical combinatorial problem, that is, to allocate distinguished balls(q-vectors) to indistinguished cells(questions). It can be easily computed by combinatorial coefficients and interpreted by using stars and bars methods. For example, in 3-skill case, we have 7 q-vectors, and if we have 4 questions to allocate them, then we have ${{4+7-1}\choose {7-1}}=210$ possible configurations. To compare, in 4-skill case, and if we have 5 questions to allocate them, then we have ${{5+15-1}\choose {15-1}}=11628$ possible configurations. For each configuration, we will calculate the MAP estimation for all categories of each student, and compare with the one-hot encoding for their true categories. The total loss is reported as the performance index.
 
-In order to have a more refined analysis, we go deeper to check the accuracy for each profile pattern. For a 3 skill model, we have $2^3=8$ profile patterns. For these patterns, we want to check the precision and recall for each of them under every possible configuration. The result is reported by figures. And in order to show the usefulness of the identifiability condition, the configurations containing all the ${e_j}$ and only use ${e_j}$ will be denoted by red colour, while configurations containing all the ${e_j}$ but used at least one other q-vectors are denoted by blue colour. $J$ denotes the number of questions.
+%In order to have a more refined analysis, we go deeper to check the accuracy for each profile pattern. For a 3 skill model, we have $2^3=8$ profile patterns. For these patterns, we want to check the precision and recall for each of them under every possible configuration. The result is reported by figures. And in order to show the usefulness of the identifiability condition, the configurations containing all the ${e_j}$ and only use ${e_j}$ will be denoted by red colour, while configurations containing all the ${e_j}$ but used at least one other q-vectors are denoted by blue colour. $J$ denotes the number of questions.
 
-All the 8 patterns are,
+For the 3-skill case, all the 8 profile patterns are,
+
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 p_1 & 0 & 0 & 0 \\	
@@ -150,163 +142,69 @@ p_7 & 0 & 1 & 1 \\
 p_8 & 1 & 1 & 1 \\
 }
 \section{Result}
-%\begin {table}[H]
-%\caption{Result with Q-matrix 1}
-%\begin{tabular}{|c|c|c|c|c|c|}
-%\hline
-%slip/guess & 0.01 & 0.05 & 0.10 & 0.20 & 0.30\\
-%\hline
-%1 & 23.27 & 22.34 & 21.02 & 18.81 & 16.52\\
-%\hline
-%2 & 49.98 & 45.91 & 41.57 & 32.78 & 25.08\\ 
-%\hline
-%3 & 97.04 & 85.56 & 73.40 & 50.80 & 34.24\\
-%\hline
-%4 & 97.09 & 85.49 & 72.26 & 51.02 & 33.85\\
-%\hline
-%5 & 97.03 & 85.19 & 71.58 & 50.11 & 32.92\\
-%\hline
-%6 & 96.88 & 85.25 & 72.25 & 50.46 & 33.55\\
-%\hline
-%7 & 97.84 & 89.66 & 78.43 & 57.01 & 38.34\\
-%\hline
-%8 & 98.96 & 93.95 & 85.20 & 63.98 & 43.31\\
-%\hline
-%9 & 99.93 & 97.97 & 91.86 & 71.11 & 47.47\\
-%\hline
-%10 & 99.91 & 97.86 & 91.62 & 71.87 & 48.21\\
-%\hline
-%11 & 99.93 & 97.76 & 91.59 & 71.18 & 47.03\\
-%\hline
-%12 & 99.92 & 97.81 & 91.57 & 71.74 & 47.71\\ 
-%\hline
-%13 & 99.92 & 98.31 & 93.84 & 75.40 & 51.05\\
-%\hline
-%14 & 99.97 & 98.96 & 95.61 & 79.62 & 55.43\\
-%\hline
-%15 & 100.00 & 99.57 & 97.47 & 84.32 & 58.84\\
-%\hline
-%16 & 100.00 & 99.69 & 97.49 & 83.23 & 58.92\\
-%\hline
-%17 & 100.00 & 99.65 & 97.25 & 83.31 & 58.30\\
-%\hline
-%18 & 100.00 & 99.66 & 97.26 & 83.43 & 58.02\\
-%\hline
-%19 & 99.99 & 99.76 & 98.06 & 85.69 & 61.30\\
-%\hline
-%20 & 100.00 & 99.81 & 98.60 & 87.88 & 63.74\\
-%\hline
-%21 & 100.00 & 99.95 & 99.13 & 90.34 & 66.94\\
-%\hline
-%\end{tabular}
-%\end{table}
-%
-%
-%\begin {table}[H]
-%\caption{Result with Q-matrix 2}
-%\begin{tabular}{|c|c|c|c|c|c|}
-%\hline
-%slip/guess & 0.01 & 0.05 & 0.10 & 0.20 & 0.30\\
-%\hline
-%1 & 23.31 & 22.35 & 20.97 & 18.68 & 16.30\\
-%\hline
-%2 & 49.88 & 46.11 & 41.36 & 32.84 & 24.91\\ 
-%\hline
-%3 & 96.81 & 85.62 & 72.95 & 51.11 & 34.23\\
-%\hline
-%4 & 97.07 & 85.88 & 72.75 & 52.57 & 34.64\\
-%\hline
-%5 & 97.29 & 86.65 & 74.05 & 52.68 & 35.25\\
-%\hline
-%6 & 97.20 & 87.20 & 75.01 & 53.20 & 35.67\\
-%\hline
-%7 & 97.56 & 88.33 & 76.71 & 55.11 & 36.28\\
-%\hline
-%8 & 97.70 & 88.69 & 76.30 & 55.49 & 37.01\\
-%\hline
-%9 & 98.35 & 91.67 & 82.53 & 60.93 & 40.42\\
-%\hline
-%10 & 99.22 & 94.95 & 87.59 & 67.50 & 46.12\\
-%\hline
-%11 & 99.94 & 98.48 & 93.08 & 74.28 & 50.28\\
-%\hline
-%12 & 99.95 & 98.18 & 93.30 & 75.02 & 50.58\\ 
-%\hline
-%13 & 99.95 & 98.52 & 93.05 & 75.33 & 50.91\\
-%\hline
-%14 & 99.93 & 98.33 & 93.31 & 75.10 & 50.30\\
-%\hline
-%15 & 99.92 & 98.42 & 93.55 & 75.43 & 50.73\\
-%\hline
-%16 & 99.93 & 98.21 & 93.65 & 75.92 & 51.49\\
-%\hline
-%17 & 99.94 & 98.78 & 94.87 & 78.70 & 55.48\\
-%\hline
-%18 & 99.99 & 99.29 & 96.40 & 82.48 & 58.94\\
-%\hline
-%19 & 100.00 & 99.75 & 97.95 & 86.38 & 61.51\\
-%\hline
-%20 & 100.00 & 99.75 & 97.88 & 85.94 & 61.41\\
-%\hline
-%21 & 100.00 & 99.75 & 98.03 & 86.02 & 62.29\\
-%\hline
-%22 & 100.00 & 99.79 & 97.91 & 86.61 & 61.85\\
-%\hline
-%23 & 100.00 & 99.72 & 97.92 & 86.39 & 63.44\\
-%\hline
-%24 & 100.00 & 99.71 & 97.92 & 86.52 & 61.99\\
-%\hline
-%\end{tabular}
-%\end{table}
-
 \begin{figure}[h!]
   \begin{center}
-  \input{StrategyComparison.tex}
+  \includegraphics[width=\columnwidth]{simResults/LossStrategyComparisonThreeSkills.pdf}
   \end{center}
-  \caption{Strategy Comparison}  
-  \label{fig:StrategyComparison}
+  \caption{Three Strategy Comparison on 3-skill case}  
+  \label{fig:ComparisonThreeSkill}
 \end{figure}
 
 \begin{figure}[h!]
   \begin{center}
-  \input{theta02J4Precision.tex}
+  \includegraphics[width=\columnwidth]{simResults/LossStrategyComparisonFourSkills.pdf}
   \end{center}
-  \caption{Precision on slip=guess=0.2, J=4}  
-  \label{fig:theta02J4Precision}
+  \caption{Three Strategy Comparison on 4-skill case}  
+  \label{fig:ComparisonFourSkill}
 \end{figure}
 
 \begin{figure}[h!]
   \begin{center}
-  \input{theta02J4Recall.tex}
+  \includegraphics[width=\columnwidth]{simResults/LossBestConfig_theta001_J4.pdf}
   \end{center}
-  \caption{Recall on slip=guess=0.2, J=4}  
-  \label{fig:theta02J4Recall}
+  \caption{3-skill case, slip=guess=0.01, J=4}  
+  \label{fig:theta001J4ThreeSkill}
 \end{figure}
 
 \begin{figure}[h!]
   \begin{center}
-  \input{theta02J4Fscore.tex}
+  \includegraphics[width=\columnwidth]{simResults/LossBestConfig_theta02_J4.pdf}
   \end{center}
-  \caption{Fscore on slip=guess=0.2, J=4}  
-  \label{fig:theta02J4Fscore}
+  \caption{3-skill case, slip=guess=0.2, J=4}  
+  \label{fig:theta021J4ThreeSkill}
 \end{figure}
 
 \begin{figure}[h!]
   \begin{center}
-  \input{theta02J4Total.tex}
+  \includegraphics[width=\columnwidth]{simResults/LossBestConfig_theta001_J8.pdf}
   \end{center}
-  \caption{Total measures on slip=guess=0.2, J=4}  
-  \label{fig:theta02J4test}
+  \caption{3-skill case, slip=guess=0.01, J=8}  
+  \label{fig:theta001J8ThreeSkill}
 \end{figure}
 
 \begin{figure}[h!]
   \begin{center}
-  \input{theta02J5Total.tex}
+  \includegraphics[width=\columnwidth]{simResults/LossBestConfig_theta03_J8.pdf}
   \end{center}
-  \caption{Total measures on slip=guess=0.2, J=5}  
-  \label{fig:theta02J5test}
+  \caption{3-skill case, slip=guess=0.3, J=8}  
+  \label{fig:theta03J8ThreeSkill}
 \end{figure}
 
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[width=\columnwidth]{simResults/Skill4LossBestConfig_theta001_J5.pdf}
+  \end{center}
+  \caption{4-skill case, slip=guess=0.01, J=5}  
+  \label{fig:theta001J5FourSkill}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+  \includegraphics[width=\columnwidth]{simResults/Skill4LossBestConfig_theta02_J5.pdf}
+  \end{center}
+  \caption{4-skill case, slip=guess=0.2, J=5}  
+  \label{fig:theta02J5FourSkill}
+\end{figure}
 
 %\begin{figure}[htbp]
 %  \centering
@@ -315,7 +213,14 @@ p_8 & 1 & 1 & 1 \\
 %\end{figure}
 
 \section{Discussion}
+From the result in experiment 1 we can see that strategy 1 always works better than the other two strategies. 
 
+From the result in experiment 2, when slip and guess parameters are as low as 0.01, we can see obvious graded patterns among different configurations. Those configuration that satisfies the identifiability requirement always work better than other configurations. There is no clear distinction between the configuration using only $e_{j}$ (the pure strategy) and those using at least one other q-vectors(mixed strategy). However, when slip and guess becomes higher, the pure strategy shows better than the mixed strategy.
+
+Therefore, we argue that the best Q-matrix design is to use only the boolean unit vectors ${e_j}$ since it offers quicker convergence speed (as shown in experiment 1) and better robustness (as shown in experiment 2).
+
+\section{Future Work}
+More different experiments settings can be considered with different choice on student profiles distribution, and different number of skills involved. Besides, the case that slip and guess are unknown should also be considered, which involves a different identifiability requirement. Moreover, besides the empirical exploration, rigorous mathematical discussion can be done for the best Q-matrix design under DINA model. 
 \bibliographystyle{apacite}
 \bibliography{biblio}
 \end{document}
