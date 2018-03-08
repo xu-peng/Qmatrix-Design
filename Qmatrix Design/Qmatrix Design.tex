@@ -67,9 +67,9 @@ Identifiability is a general concept for statistical models. Its formal definiti
 
 \textbf{Definition} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is \textit{identifiable} if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
 
-For DINA model, its model parameters $\theta = \{Q, p, s, g\}$, in which $Q$ is the Q-matrix, of which each row is a q-vector, indicating what skills are needed to answer the corresponding item. $p$ is the categorical distribution parameter for the whole population. That is, it indicates the probability of a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of student belongs to each of these categories is the model parameter $p$. At last, $s$ and $g$ are both vectors denoting the slip and guess of each item. 
+The DINA model has model parameters $\theta = \{Q, p, s, g\}$, where $Q$ is the Q-matrix. $p$ is the categorical distribution parameter for the whole population. That is, it indicates the probability of a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of student belongs to each of these categories is the model parameter $p$. Finally, $s$ and $g$ are both vectors denoting the slip and guess of each item. 
 
-The identifiability of all parameters in DINA model have been carefully researched and several theorems are given \cite{xu2015identifiability}. But for Q-matrix design problem researched in this paper, we mainly need to ensure that the model parameter $p$ is identifiable, meaning that we can distinguish different profile categories. Fortunately, for the case when $s$ and $g$ are known, the requirement is easy to be satisfied, since it only requires the Q-matrix to be \textit{complete}.
+The identifiability of all parameters in DINA model have been thouroughly investigated and several theorems are given \cite{xu2015identifiability}. But for the Q-matrix design problem that is the focus of this paper, we solely need to ensure that the model parameter $p$ is identifiable, meaning that we can distinguish different profile categories. Fortunately, for the case when $s$ and $g$ are known, the requirement easily satisfied, since it only requires the Q-matrix to be \textit{complete}.
 
 \textbf{Definition} \cite{xu2015identifiability}  The matrix $Q$ is \textit{complete} meaning that $\{e_{i}:i=1,...k\} \subset R_{Q}$, where $R_{Q}$ is the set of row vectors of $Q$ and $e_{i}$ is a row vector such that the $i$-th element is one and the rest are zero.
 
@@ -305,10 +305,5 @@ This work is still in an early stage and has limits, but the main finding is wid
 Further experiments settings can be considered with different choice on student profiles distribution, and different number of skills involved. Besides, the case that slip and guess are unknown should also be considered, which involves a different identifiability requirement \cite{xu2015identifiability}. Moreover, besides the empirical exploration, rigorous mathematical discussion can be conducted for the best Q-matrix design under DINA model. 
 \bibliographystyle{apacite}
 \bibliography{biblio}
-%<<<<<<< HEAD
-
 
 \end{document}
-%=======
-%\end{document}
-%>>>>>>> 013938793efe8bed1a37a248ca2163fbc0027ed0
