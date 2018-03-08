@@ -45,9 +45,9 @@ In most contexts of student skills assessment, whether the test material is admi
 
 % RQ: In this experiment, we only look at batch testing: assessment is based on the whole set of items.  But in adaptive testing, the choice of questions will depend on the current skills assessment.  Are the rules of identifiability for batch assessment the same as for adaptive testing?
 
-Consider a set of items intended to assess a student’s mastery over a set of skills, or knowledge components (KC).  These items, along with the set of skills, can be designed to test a single skill at once.  Or, they can be designed to involve two or more skills.  A test composed of a fixed number of items can either be composed of a mixture of single and multiple skills items, or composed of one type of items only.  Skills can themselves be defined so as to facilitate the creation of task/problem items that involve single skill per item, or multiple skills per items.  By which principles should a teacher choose among these different options?
+Consider a set of items intended to assess a student's mastery over a set of skills, or knowledge components (KC).  These items, along with the set of skills, can be designed to test a single skill at once.  Or, they can be designed to involve two or more skills.  A test composed of a fixed number of items can either be composed of a mixture of single and multiple skills items, or composed of one type of items only.  Skills can themselves be defined so as to facilitate the creation of task/problem items that involve single skill per item, or multiple skills per items.  By which principles should a teacher choose among these different options?
 
-This paper addresses this question, with the general objective of designing a test that will bring the most accurate assessment of a student’s skill mastery state with the least number of questions items.  
+This paper addresses this question, with the general objective of designing a test that will bring the most accurate assessment of a student's skill mastery state with the least number of questions items.  
 
 The investigation is framed within the DINA model, where question items can involve one or more skills, and where all skills are required in order to succeed the question, while a success can still occur through a guessing factor, and failure can also occur through a slip factor.  
 
@@ -70,11 +70,11 @@ Identifiability is a general concept for statistical models. Its formal definiti
 
 \textbf{Definition (1)} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is \textit{identifiable} if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
 
-The DINA model has parameters $\theta = \{Q, p, s, g\}$, where $Q$ is the Q-matrix. p represents a student profile. That is, it indicates the probability that a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of students belongs to each of these categories is the model parameter $\alpha$. Finally, $s$ and $g$ are both vectors denoting the slip and guess of each item.
+The DINA model has parameters $\theta = \{Q, p, s, g\}$, where $Q$ is the Q-matrix. $p$ represents a student profile. That is, it indicates the probability that a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of students belongs to each of these categories is the model parameter~$p$. Finally, $s$ and $g$ are both vectors denoting the slip and guess of each item.
 
 %\Michel{It seems like $p$ should be $\alpha$ in this discussion}
 
-The identifiability of all parameters in DINA model have been thoroughly investigated and several theorems are given \cite{xu2015identifiability}. But for the Q-matrix design problem that is the focus of this paper, we solely need to ensure that the model parameter $\alpha$ is identifiable, meaning that we can distinguish different profile categories. Fortunately, for the case when $s$ and $g$ are known, the requirement easily satisfied, since it only requires the Q-matrix to be \textit{complete}.
+The identifiability of all parameters in DINA model have been thoroughly investigated and several theorems are given \cite{xu2015identifiability}. But for the Q-matrix design problem that is the focus of this paper, we solely need to ensure that the model parameter $p$ is identifiable, meaning that we can distinguish different profile categories. Fortunately, for the case when $s$ and $g$ are known, the requirement easily satisfied, since it only requires the Q-matrix to be \textit{complete}.
 
 \textbf{Definition (2)} \cite{xu2015identifiability}  The matrix $Q$ is \textit{complete} meaning that $\{e_{i}:i=1,...,K\} \subset R_{Q}$, where $R_{Q}$ is the set of row vectors of $Q$ and $e_{i}$ is a row vector such that the $i$-th element is one and the rest are zero (i.e.\ a binary unit vector).
 
@@ -145,8 +145,10 @@ In the first experiment, we compare three different Q-matrix design strategies. 
 \item Strategy 2: Using the vectors $\{e_{i}:i=1,...,K\}$ plus an all-one vector $(1,1,1)$ (in 3-skill case) or $(1,1,1,1)$ (in 4-skill case). This is inspired by orthogonal array design, which is a commonly seen design of experiments \cite{montgomery2017design}. Q-matrix used in this strategy is denoted as Q-matrix~2.
 \item Strategy 3: Repeatedly using all q-vectors. Q-matrix used in this strategy is denoted as Q-matrix~3.
 \end{itemize}
-For the 3-skills case, all these three Q-matrices are shown below. The general pattern is to recycle the rows above the lines denoted by~$... [..., ..., ...]$.
+For the 3-skills case, all these three Q-matrices are shown in Figure~\ref{tab:qmds}. The general pattern is to recycle the rows above the lines denoted by~$... [..., ..., ...]$.
 
+\begin{figure}
+\centering  
 \parbox{.5\columnwidth}{
 \centering
 Q-matrix 1\\
@@ -178,8 +180,7 @@ q_{18} & 0 & 1 & 0 \\
 q_{19} & 0 & 0 & 1 \\
 q_{20} & 1 & 1 & 1 \\
 q_{21} & 1 & 0 & 0 \\
-}}
-\parbox{.5\columnwidth}{
+}}\parbox{.5\columnwidth}{
 \centering
 {Q-matrix 3}\\
 {(all~combinations)} \\
@@ -201,6 +202,9 @@ q_{19} & 1 & 0 & 1 \\
 q_{20} & 0 & 1 & 1 \\
 q_{21} & 1 & 1 & 1 \\
 }}
+  \caption{Q-matrix design strategies}
+  \label{tab:qmds}
+\end{figure}
 
 The 4-skills case is similar, which is omitted here. Results of these two cases are shown in Figure~\ref{fig:ComparisonThreeSkill} and Figure~\ref{fig:ComparisonFourSkill}.
 
