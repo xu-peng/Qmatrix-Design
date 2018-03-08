@@ -80,7 +80,7 @@ And the heart of the current investigation is based on the following proposition
 
 \textbf{Proposition} \cite{xu2015identifiability} Under the DINA and DINO models, with $Q$, $s$ and $g$ being known, the population proportional parameter $p$ is \textit{identifiable} if and only if $Q$ is \textit{complete}.
 
-\Michel{What does this proposition imply exactly? That binary unit vectors are sufficient?}
+%\Michel{What does this proposition imply exactly? That binary unit vectors are sufficient?}
    
 %However, for Q-matrix related model, since exchanging columns does not yield an essentially different Q-matrix. During the research of \citeA{xu2015identifiability}, the identifiability of Q-matrix has been redefined.
 %
@@ -92,7 +92,7 @@ In the next section, we investigate empirically the Q-matrix design options in l
 \section{Experiment}
 The Q-matrix design problem essentially is an optimization problem. Basically, we have a pool of Q-matrices, and each of them is formed by a selection with replacement from a pool of q-vectors. Each Q-matrix will yield some capacity to diagnose students, as measured by a loss function. We aim to choose a Q-matrix that minimizes the loss function.
 
-In our experiments, to use Q-matrix to diagnose students under DINA model, we follow a Bayesian framework. First, we use one-hot encoding to denote all profile categories. For example, in 3-skill case, all the 8 profile patterns in its original form is,
+In our experiments, to use Q-matrix to diagnose students under DINA model, we follow a Bayesian framework. First, we use one-hot encoding to denote all profile categories. Set $M$ to be the number of profile categories. Then, in 3-skill case, all the $M=8$ profile patterns $p_i$ in its original form is,
 
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
@@ -105,24 +105,28 @@ p_6 & 1 & 0 & 1 \\
 p_7 & 0 & 1 & 1 \\
 p_8 & 1 & 1 & 1 \\
 }
-and their one-hot encodings are 
-$p_1=(1,0,0,0,0,0,0,0)$, $p_2=(0,1,0,0,0,0,0,0)$,...,$p_8=(0,0,0,0,0,0,0,1)$.
-\Michel{This is confusing because $p_1$ appears as a row label, akin to the column label $k_1$, whereas it represents a probability distribution vector over the rows. Maybe use a notation such as $P(p_1)=(1,0,0,0,0,0,0,0)$, $P(p_2)=(0,1,0,0,0,0,0,0)$,...,$P(p_8)=(0,0,0,0,0,0,0,1)$ ?}
+and correspondent one-hot encodings are $\alpha_1=(1,0,0,0,0,0,0,0)$, $\alpha_2=(0,1,0,0,0,0,0,0)$,...,
+$\alpha_8=(0,0,0,0,0,0,0,1)$.
+%\Michel{This is confusing because $p_1$ appears as a row label, akin to the column label $k_1$, whereas it represents a probability distribution vector over the rows. Maybe use a notation such as $P(p_1)=(1,0,0,0,0,0,0,0)$, $P(p_2)=(0,1,0,0,0,0,0,0)$,...,$P(p_8)=(0,0,0,0,0,0,0,1)$ ?}
 Then, we set the prior of each student profile to be 
 
-$p_0=(1/8,1/8,1/8,1/8,1/8,1/8,1/8,1/8)$, 
+$\alpha_0=(1/8,1/8,1/8,1/8,1/8,1/8,1/8,1/8)$ 
 
-and posterior will be calculated after answering each question. The posterior profile of the student has the form 
-
-$\hat{p} = (m_1,m_2,m_3,m_4,m_5,m_6,m_7,m_8)$, 
-
-and then we calculate the loss between this posterior and the true profile $p_{\mathrm{true}}$, which is one of the one-hot encoding vector. 
+With the conditional independence assumed(i.e, conditioned on a given profile category, the probability to answer each question correct is independent), the likelihood is given by \cite{de2009dina}
+$$ L(\alpha|X) = P(X|\alpha) = \prod_{i=1}^I P(X_i|\alpha_i) = \prod_{j=1}^J P_j(\alpha_i)^{X_{ij}}[1-P_j(\alpha_i)]^{1-X_{ij}}$$
+in which $X$ is the response matrix and $X_i$ is the $i$-th row, $I$ is the number of records(students), $J$ is the  number of questions. $P_j(\alpha_i)$ is the probability of student profile $\alpha_i$ to answer correctly of question $j$, which is given by DINA model
+$$ P_j(\alpha_i) = P(X_{ij}=1|\alpha_i)=g_j^{1-\eta_{ij}}(1-s_j)^{\eta_{ij}}$$
+and posterior $\hat{\alpha}$ for each student will be calculated based on likelihood and prior. It will have the form
+$$\hat{\alpha} = (m_1,m_2,m_3,m_4,m_5,m_6,m_7,m_8)$$ 
+and then we calculate the loss between this posterior and the true profile $\alpha_{\mathrm{true}}$, which is one of the one-hot encoding vector. 
 
 In short, for any Q-matrix configuration, the loss function is defined as
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
-$ loss(Q) = \sum_{\mathrm{students}} \norm{\hat{p} - p_{\mathrm{true}}}$ \Michel{Note that I removed the square exposant here since it seemed unwarranted.}
+$ loss(Q) = \sum_{\mathrm{students}} \norm{\hat{\alpha} - \alpha_{\mathrm{true}}}^2$ 
 
-In our experiments, we consider the 3-skills case and 4-skills case respectively. For 3-skills case, we test with $N=200$ students, with 25 students falling into each of 8 categories. For 4-skills case, we test with $N=400$ students, with 25 students falling into each of 16 categories. We use $J$ to denote the number of questions and $k$ to denote the number of involved skills.
+To implement the experiment, for each Q-matrix configuration, we will generate a response matrix based on DINA model given fixed slip and guess parameters, using function 'DINAsim' from R package 'DINA' \cite{Culpepper2015}, then calculate the posterior estimation for all students and evaluate the total loss. The reported result is an average loss of 100 runs. 
+
+In our experiments, we consider the 3-skills case and 4-skills case respectively. For 3-skills case, we conduct it with $N=200$ students, of which 25 students falling into each of 8 categories. For 4-skills case, we conduct it with $N=400$ students, of which 25 students falling into each of 16 categories. 
 
 \subsection{Experiment 1: Comparison of three strategies}
 In the first experiment, we compare three different Q-matrix design strategies. They are all based on repetition of a specific pool of q-vectors.
@@ -199,7 +203,7 @@ We show the results of 6 combinations of different numbers of skills and questio
 \item 4-skills case, 5 questions: Figure~\ref{fig:theta001J5FourSkill}, Figure~\ref{fig:theta02J5FourSkill}
 \end{itemize}
 
-\Michel{Explain the strategies here and say a word about the DINA slip and guess (maybe report the formula of the DINA model in the section where it is presented?)}
+%\Michel{Explain the strategies here and say a word about the DINA slip and guess (maybe report the formula of the DINA model in the section where it is presented?)}
 
 \section{Result}
 All results are given in form of figures.
@@ -274,7 +278,7 @@ All results are given in form of figures.
 %\end{figure}
 
 \section{Discussion}
-From the result in experiment 1 we can see that strategy 1 always works better than the other two strategies, meaning that by simply repeating the vectors $\{e_{i}:i=1,...k\}$ in Q-matrix design, without using any combination of skills yields better performance in student diagnosis. \Michel{you mean binary unit vectors? I guess once you explain the strategies it should be clear.}
+From the result in experiment 1 we can see that strategy 1 always works better than the other two strategies, meaning that by simply repeating the vectors $\{e_{i}:i=1,...k\}$ in Q-matrix design, without using any combination of skills yields better performance in student diagnosis. %\Michel{you mean binary unit vectors? I guess once you explain the strategies it should be clear.}
 
 From the result in experiment 2, when slip and guess parameters are as low as 0.01, we can see obvious graded patterns among different configurations. This can be explained by the distinguishability of Q-matrix. For example, in Figure~\ref{fig:theta001J4ThreeSkill}, we can see there are 7 layers. In fact, the first layer consisted of Q-matrix that can only cluster students into 2 categories. One example of such kind Q-matrix is
 \kbordermatrix{
