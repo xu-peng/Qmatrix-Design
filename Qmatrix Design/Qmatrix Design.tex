@@ -62,11 +62,11 @@ In the last decade, considerable research has been devoted to deriving a Q-matri
 
 In parallel to these investigations around the derivation and refinement of Q-matrices, some researchers have looked at the question of the identifiability.  The general idea behind identifiability is that two or more configurations of model parameters can be considered as equivalent.  Sets of parameters will be considered equivalent if, for example, their likelihood are equal given a data sample.  Or, conversely, if the parameters are part of a generative model, two sets of equivalent parameters would generate data having the same characteristics of interest, in particular equal joint probability distributions (see~\citeNP{doroudi2017misidentified}, for more details).
 
-The issue of identifiability for student skills assessment was first raised for the Bayesian Knowledge Tracing (BKT) model by \citeNP{beck2007identifiability} and later discussed by \citeNP{van2013properties}, and \citeNP{doroudi2017misidentified}.  In this paper, we consider the identifiability of the Q-matrix with regards to the DINA model, which was studied by \citeNP{xu2015identifiability} \citeNP{qin2015model}.  Detailed statistical analysis has been made under the DINA/DINO models, which was first discussed under the situation that slip and guess is zero \cite{chiu2009cluster}, and then the case that slip and guess exist but is known \cite{liu2013theory}, and finally the case that slip and guess is unknown \cite{chen2015statistical}. 
+The issue of identifiability for student skills assessment was first raised for the Bayesian Knowledge Tracing (BKT) model by \citeNP{beck2007identifiability} and later discussed by \citeNP{van2013properties}, and \citeNP{doroudi2017misidentified}.  In this paper, we consider the identifiability of the Q-matrix with regards to the DINA model, which was studied by \citeNP{xu2015identifiability} and \citeNP{qin2015model}.  Detailed statistical analysis has been made under the DINA/DINO models, which was first discussed under the situation that slip and guess is zero \cite{chiu2009cluster}, and then the case that slip and guess exist but is known \cite{liu2013theory}, and finally the case that slip and guess is unknown \cite{chen2015statistical}. 
 
 % However, how do we use the conditions offered by the discussion to guide our educational test? First, the discussion is centered around the identifiability on Q-matrix, not on the identifiability of students, which is also a critical problem \cite{beck2007identifiability}. Fortunately, for the case slip and guess are known, the identifiability of the parameters $p$ are also given \cite{chen2015statistical}.  
 
-Identifiability is a general concept for statistical models. Its formal definition is:
+Identifiability is a general concept for statistical models. Its formal definition is
 
 \textbf{Definition} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is \textit{identifiable} if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
 
@@ -132,7 +132,7 @@ In our experiments, we consider the 3-skills case and 4-skills case respectively
 In the first experiment, we compare three different Q-matrix design strategies. They are all based on repetition of a specific pool of q-vectors.
 \begin{itemize}
 \item Strategy 1: Using the identifiability condition by only repeatedly using the vectors $\{e_{i}:i=1,...k\}$. Q-matrix used in this strategy is denoted as Q-matrix~1.
-\item Strategy 2: Using the vectors $\{e_{i}:i=1,...k\}$ plus a all-one vector $(1,1,1)$ or $(1,1,1,1)$. This is inspired by orthogonal array design, which is a commonly seen design of experiments \cite{montgomery2017design}. Q-matrix used in this strategy is denoted as Q-matrix~2.
+\item Strategy 2: Using the vectors $\{e_{i}:i=1,...k\}$ plus a all-one vector $(1,1,1)$(in 3-skill case) or $(1,1,1,1)$(in 4-skill case). This is inspired by orthogonal array design, which is a commonly seen design of experiments \cite{montgomery2017design}. Q-matrix used in this strategy is denoted as Q-matrix~2.
 \item Strategy 3: Repeatedly using all q-vectors. Q-matrix used in this strategy is denoted as Q-matrix~3.
 \end{itemize}
 For the 3-skills case, all these three Q-matrices are shown below. The general pattern is to recycle the rows above the lines denoted~$q_i [..., ..., ...]$.
