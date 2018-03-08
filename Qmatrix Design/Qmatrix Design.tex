@@ -297,7 +297,7 @@ When slip and guess parameter increase, it makes the points becomes more diverge
 \item Type II: Complete but not confined, meaning it not only contains all vectors $\{e_{i}:i=1,...k\}$, but also contains at least one other q-vector.
 \item Type III: Incomplete Q-matrix.
 \end{itemize}
-Type I and Type II Q-matrices performs the same when slip and guess are low (Figure~\ref{fig:theta001J4ThreeSkill}, Figure~\ref{fig:theta001J5FourSkill}), but when they get higher, Type II Q-matrices show a better performance (Figure~\ref{fig:theta021J4ThreeSkill}, Figure~\ref{fig:theta02J5FourSkill}).
+Type I and Type II Q-matrices performs the same when slip and guess are low (Figure~\ref{fig:theta001J4ThreeSkill}, Figure~\ref{fig:theta001J5FourSkill}), but when they get higher, Type I Q-matrices show a better performance (Figure~\ref{fig:theta021J4ThreeSkill}, Figure~\ref{fig:theta02J5FourSkill}).
 
 However, when more questions are involved in high slip and guess, the performance becomes more unstable. Therefore, we again consider more subtypes. In 3-skills case for 8 questions, we consider three subtypes below. 
 \begin{itemize}
@@ -305,7 +305,7 @@ However, when more questions are involved in high slip and guess, the performanc
 \item Subtype 2: Other situation (e.g A complete Q-matrix but all the other vectors are just repeated $e_1$).
 \item Subtype 3: Q-matrix contains all q-vectors.
 \end{itemize}
-From Figure~\ref{fig:theta03J8ThreeSkill} we can see that the subtype 1 (denoted by triangle) shows better performance than subtype 2, meaning that repeating the whole complete Q-matrix is a better strategy just like the strategy 1 we used in experiment 1. Subtype 3 corresponds to the strategy 3 in experiment 1, it has only 7 possible configurations in 8-question setting and we can see that they do not perform well.
+From Figure~\ref{fig:theta03J8ThreeSkill} we can see that the subtype 1 (denoted by triangle) shows better performance than subtype 2, meaning that repeating the whole set of $\{e_{i}:i=1,...k\}$ is a better strategy just like the strategy 1 we used in experiment 1. Subtype 3 corresponds to the strategy 3 in experiment 1, it has only 7 possible configurations in 8-question setting and we can see that they do not perform well.
 
 Therefore, we argue that the best Q-matrix design is to use only the vectors $\{e_{i}:i=1,...k\}$ since it offers quicker convergence speed (as shown in experiment 1) and better robustness against slip and guess (as shown both in experiment 1 and 2).
 
