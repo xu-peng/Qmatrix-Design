@@ -70,7 +70,7 @@ Identifiability is a general concept for statistical models. Its formal definiti
 
 \textbf{Definition (1)} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is \textit{identifiable} if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
 
-The DINA model has parameters $\theta = \{Q, p, s, g\}$, where $Q$ is the Q-matrix. $p$ represents a student profile. That is, it indicates the probability that a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of students belongs to each of these categories is the model parameter~$p$. Finally, $s$ and $g$ are both vectors denoting the slip and guess of each item.
+The DINA model has parameters $\theta = \{Q, p, s, g\}$, where $Q$ is the Q-matrix. $p$ is the categorical distribution parameter for all student profile categories. That is, it indicates the probability that a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of students belongs to each of these categories is the model parameter~$p$. Finally, $s$ and $g$ are both vectors denoting the slip and guess of each item.
 
 %\Michel{It seems like $p$ should be $\alpha$ in this discussion}
 
