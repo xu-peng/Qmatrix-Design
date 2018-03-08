@@ -3,9 +3,6 @@
 %\documentclass[11pt,twocolumn]{article}
 \usepackage{amsmath}
 \usepackage{graphicx}
-%\usepackage{xcolor}
-%\usepackage{svg}
-\usepackage{tikz}
 \usepackage{flushend}
 \usepackage{algorithmic}
 %\usepackage{adjustbox}
@@ -54,7 +51,7 @@ The investigation is framed within the DINA model, where question items can invo
 %In adaptive testing, the goal is to ask the question items that are aligned with the student's estimated assessment and that will bring the most information, thereby increasing accuracy and reducing test length.  In a single skill framework, such as Item Response Theory (IRT), this goal is relatively well understood and straightforward. But in the case where multiple skills must be assessed simultaneously and where items can involve more than a single skill, the process is much more complex (see for eg.\ \citeNP{vie2017review}).  Assessment necessarily relies on how items relate to the skills we wish to assess.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Q-matrix, the DINA model, and identifiability}
+\section{Q-matrix, DINA model and identifiability}
 
 This mapping of items to skills is generally referred to as a Q-matrix, where items are mapped to latent skills whose mastery is deemed necessary in order for the student to succeed at the items.  An item can represent a question, an exercise, or any task that can have a positive or negative outcome.  In the DINA model, the conjunctive version of the Q-matrix is adopted and all of the matrix 1-cells corresponding to a line item are required in order to lead to a success.  
 
@@ -68,17 +65,17 @@ The issue of identifiability for student skills assessment was first raised for 
 
 Identifiability is a general concept for statistical models. Its formal definition is,
 
-\textbf{Definition} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is identifiable if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
+\textbf{Definition} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is \textit{identifiable} if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
 
 For DINA model, its model parameters $\theta = \{Q, p, s, g\}$, in which $Q$ is the Q-matrix, of which each row is a q-vector, indicating what skills are needed to answer the corresponding item. $p$ is the categorical distribution parameter for the whole population. That is, it indicates the probability of a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of student belongs to each of these categories is the model parameter $p$. At last, $s$ and $g$ are both vectors denoting the slip and guess of each item. 
 
 The identifiability of all parameters in DINA model have been carefully researched and several theorems are given \cite{xu2015identifiability}. But for Q-matrix design problem researched in this paper, we mainly need to ensure that the model parameter $p$ is identifiable, meaning that we can distinguish different profile categories. Fortunately, for the case when $s$ and $g$ are known, the requirement is easy to be satisfied, since it only requires the Q-matrix to be \textit{complete}.
 
-\textbf{Definition} \cite{xu2015identifiability}  The matrix $Q$ is complete meaning that $\{e_{i}:i=1,...k\} \subset R_{Q}$, where $R_{Q}$ is the set of row vectors of $Q$ and $e_{i}$ is a row vector such that the $i$-th element is one and the rest are zero.
+\textbf{Definition} \cite{xu2015identifiability}  The matrix $Q$ is \textit{complete} meaning that $\{e_{i}:i=1,...k\} \subset R_{Q}$, where $R_{Q}$ is the set of row vectors of $Q$ and $e_{i}$ is a row vector such that the $i$-th element is one and the rest are zero.
 
 And our whole research is based on the proposition below,
 
-\textbf{Proposition} \cite{xu2015identifiability} Under the DINA and DINO models, with $Q$, $s$ and $g$ being known, the population proportional parameter $p$ is identifiable if and only if $Q$ is complete.
+\textbf{Proposition} \cite{xu2015identifiability} Under the DINA and DINO models, with $Q$, $s$ and $g$ being known, the population proportional parameter $p$ is \textit{identifiable} if and only if $Q$ is \textit{complete}.
 
    
 %However, for Q-matrix related model, since exchanging columns does not yield an essentially different Q-matrix. During the research of \citeA{xu2015identifiability}, the identifiability of Q-matrix has been redefined.
@@ -121,13 +118,11 @@ In our experiments, we consider the 3-skill case and 4-skill case respectively. 
 
 \subsection{Experiment 1: Comparison of three strategies}
 In the first experiment, we compare three different Q-matrix design strategies. They are all based on repetition of a specific pool of q-vectors.
-
-Strategy 1: Using the identifiability condition by only repeatedly using the vectors $\{e_{i}:i=1,...k\}$. Q-matrix used in this strategy is denoted as Q-matrix 1.
-
-Strategy 2: Using the vectors $\{e_{i}:i=1,...k\}$ plus a all-one vector $(1,1,1)$ or $(1,1,1,1)$. This is inspired by orthogonal array design, which is a commonly seen design of experiments \cite{montgomery2017design}. Q-matrix used in this strategy is denoted as Q-matrix 2.
-
-Strategy 3: Repeatedly using all q-vectors. Q-matrix used in this strategy is denoted as Q-matrix 3.
-
+\begin{itemize}
+\item Strategy 1: Using the identifiability condition by only repeatedly using the vectors $\{e_{i}:i=1,...k\}$. Q-matrix used in this strategy is denoted as Q-matrix 1.
+\item Strategy 2: Using the vectors $\{e_{i}:i=1,...k\}$ plus a all-one vector $(1,1,1)$ or $(1,1,1,1)$. This is inspired by orthogonal array design, which is a commonly seen design of experiments \cite{montgomery2017design}. Q-matrix used in this strategy is denoted as Q-matrix 2.
+\item Strategy 3: Repeatedly using all q-vectors. Q-matrix used in this strategy is denoted as Q-matrix 3.
+\end{itemize}
 For the 3-skill case, all these three Q-matrices have been shown below. 
 
 \parbox{.5\columnwidth}{
@@ -190,13 +185,11 @@ The second experiment takes the brutal force way. We directly examine all possib
 For each configuration, we will calculate the MAP estimation for all categories of each student, and compare with the one-hot encoding for their true categories. The total loss is reported as the performance index.
 
 We show 6 results graph to offer an overview of this experiment.
-
-3-skill case, 4 questions: Figure \ref{fig:theta001J4ThreeSkill}, Figure \ref{fig:theta021J4ThreeSkill}
-
-3-skill case, 8 questions: Figure \ref{fig:theta001J8ThreeSkill}, Figure \ref{fig:theta03J8ThreeSkill}
-
-4-skill case, 5 questions: Figure \ref{fig:theta001J5FourSkill}, Figure \ref{fig:theta02J5FourSkill}
-
+\begin{itemize}
+\item 3-skill case, 4 questions: Figure \ref{fig:theta001J4ThreeSkill}, Figure \ref{fig:theta021J4ThreeSkill}
+\item 3-skill case, 8 questions: Figure \ref{fig:theta001J8ThreeSkill}, Figure \ref{fig:theta03J8ThreeSkill}
+\item 4-skill case, 5 questions: Figure \ref{fig:theta001J5FourSkill}, Figure \ref{fig:theta02J5FourSkill}
+\end{itemize}
 
 \section{Result}
 All results are given in form of figures.
@@ -271,7 +264,7 @@ All results are given in form of figures.
 %\end{figure}
 
 \section{Discussion}
-From the result in experiment 1 we can see that strategy 1 always works better than the other two strategies. 
+From the result in experiment 1 we can see that strategy 1 always works better than the other two strategies, meaning that just by repeating the vectors $\{e_{i}:i=1,...k\}$ in Q-matrix design, without using any combination of skills yields better performance in student diagnosis. 
 
 From the result in experiment 2, when slip and guess parameters are as low as 0.01, we can see obvious graded patterns among different configurations. This can be explained by the distinguishability of Q-matrix. For example, in Figure \ref{fig:theta001J4ThreeSkill}, we can see there are 7 layers. In fact, the first layer consisted of Q-matrix that can only cluster students into 2 categories. One example of such kind Q-matrix is
 \kbordermatrix{
@@ -285,24 +278,19 @@ q_1 & 1 & 0 & 0 \\
 This Q-matrix can only tell whether a student mastered skill 1 or not, thus separated students into 2 categories. We know that there are in fact 8 categories of students, the 7 layers in Figure \ref{fig:theta001J4ThreeSkill} from top to bottom are the Q-matrix that can separate students into 2 to 8 categories. We can see that complete Q-matrix always fall in the bottom layer, which agrees with the proposition that we showed in the Section 2. The 4-skill case is similar in Figure \ref{fig:theta001J5FourSkill}.
 
 When slip and guess parameter increases, it basically makes the points becomes more divergent which can be easily seen by comparison of Figure \ref{fig:theta001J4ThreeSkill} and Figure \ref{fig:theta021J4ThreeSkill}. In order to see some more details, we distinguish three types of Q-matrices. 
-
-Type I: Complete and confined, meaning it is only consisted of vectors $\{e_{i}:i=1,...k\}$.
-
-Type II: Complete but not confined, meaning it not only contains all vectors $\{e_{i}:i=1,...k\}$, but also contains at least one other q-vector.
-
-Type III: Incomplete Q-matrix.
-
+\begin{itemize}
+\item Type I: Complete and confined, meaning it is only consisted of vectors $\{e_{i}:i=1,...k\}$.
+\item Type II: Complete but not confined, meaning it not only contains all vectors $\{e_{i}:i=1,...k\}$, but also contains at least one other q-vector.
+\item Type III: Incomplete Q-matrix.
+\end{itemize}
 Type I and Type II Q-matrices performs the same when slip and guess are low (Figure\ref{fig:theta001J4ThreeSkill}, Figure \ref{fig:theta001J5FourSkill}), but when they get higher, Type II Q-matrices show a better performance (Figure \ref{fig:theta021J4ThreeSkill}, Figure\ref{fig:theta02J5FourSkill}).
 
 However, when more questions are involved in high slip and guess, the performance becomes more tricky. Therefore, we again consider more subtypes. In 3-skill case for 8 questions, we consider three subtypes below. 
-
-Subtype 1: Q-matrix contains each component of $\{e_{i}:i=1,...k\}$ at least twice. 
-
-Subtype 2: Other situation (e.g A complete Q-matrix but all the other vectors are just repeated $e_1$)
-.
-
-Subtype 3: Q-matrix contains all q-vectors.
-
+\begin{itemize}
+\item Subtype 1: Q-matrix contains each component of $\{e_{i}:i=1,...k\}$ at least twice. 
+\item Subtype 2: Other situation (e.g A complete Q-matrix but all the other vectors are just repeated $e_1$).
+\item Subtype 3: Q-matrix contains all q-vectors.
+\end{itemize}
 From Figure \ref{fig:theta03J8ThreeSkill} we can see that the subtype 1(denoted by triangle) shows better performance than subtype 2, meaning that repeating the whole complete Q-matrix is a better strategy just like the strategy 1 we used in experiment 1. Subtype 3 corresponds to the strategy 3 in experiment 1, it has only 7 possible configurations in 8-question setting and we can see that they do not perform well.
 
 Therefore, we argue that the best Q-matrix design is to use only the vectors $\{e_{i}:i=1,...k\}$ since it offers quicker convergence speed (as shown in experiment 1) and better robustness against slip and guess (as shown both in experiment 1 and 2).
@@ -317,10 +305,10 @@ This work is still in an early stage and has limits, but the main finding is wid
 Further experiments settings can be considered with different choice on student profiles distribution, and different number of skills involved. Besides, the case that slip and guess are unknown should also be considered, which involves a different identifiability requirement \cite{xu2015identifiability}. Moreover, besides the empirical exploration, rigorous mathematical discussion can be conducted for the best Q-matrix design under DINA model. 
 \bibliographystyle{apacite}
 \bibliography{biblio}
-<<<<<<< HEAD
+%<<<<<<< HEAD
 
 
 \end{document}
-=======
-\end{document}
->>>>>>> 013938793efe8bed1a37a248ca2163fbc0027ed0
+%=======
+%\end{document}
+%>>>>>>> 013938793efe8bed1a37a248ca2163fbc0027ed0
