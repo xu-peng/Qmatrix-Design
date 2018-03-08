@@ -76,11 +76,11 @@ The DINA model has parameters $\theta = \{Q, p, s, g\}$, where $Q$ is the Q-matr
 
 The identifiability of all parameters in DINA model have been thoroughly investigated and several theorems are given \cite{xu2015identifiability}. But for the Q-matrix design problem that is the focus of this paper, we solely need to ensure that the model parameter $p$ is identifiable, meaning that we can distinguish different profile categories. Fortunately, for the case when $s$ and $g$ are known, the requirement easily satisfied, since it only requires the Q-matrix to be \textit{complete}.
 
-\textbf{Definition (2)} \cite{xu2015identifiability}  The matrix $Q$ is \textit{complete} meaning that $\{e_{i}:i=1,...,K\} \subset R_{Q}$, where $R_{Q}$ is the set of row vectors of $Q$ and $e_{i}$ is a row vector such that the $i$-th element is one and the rest are zero (i.e.\ a binary unit vector).
+\textbf{Definition (2)} \cite{chen2015statistical}  The matrix $Q$ is \textit{complete} meaning that $\{e_{i}:i=1,...,K\} \subset R_{Q}$, where $R_{Q}$ is the set of row vectors of $Q$ and $e_{i}$ is a row vector such that the $i$-th element is one and the rest are zero (i.e.\ a binary unit vector).
 
 And the heart of the current investigation is based on the following proposition:
 
-\textbf{Proposition} \cite{xu2015identifiability} Under the DINA and DINO models, with $Q$, $s$ and $g$ being known, the population proportional parameter $p$ is \textit{identifiable} if and only if $Q$ is \textit{complete}.
+\textbf{Proposition} \cite{chen2015statistical} Under the DINA and DINO models, with $Q$, $s$ and $g$ being known, the population proportional parameter $p$ is \textit{identifiable} if and only if $Q$ is \textit{complete}.
 
 %\Michel{What does this proposition imply exactly? That binary unit vectors are sufficient?}
    
@@ -115,12 +115,18 @@ Then, we set the prior of each student profile to be
 
 $\alpha_0=(1/8,1/8,1/8,1/8,1/8,1/8,1/8,1/8)$ 
 
-With the conditional independence assumed (i.e, conditioned on a given profile category, the probability to answer each question correct is independent), the likelihood is given by \cite{de2009dina}
-$$ L(\alpha|X) = P(X|\alpha) = \prod_{i=1}^I P(X_i|\alpha_i) = \prod_{j=1}^J P_j(\alpha_i)^{X_{ij}}[1-P_j(\alpha_i)]^{1-X_{ij}}$$
-in which $X$ is the response matrix and $X_i$ is the $i$-th row, $I$ is the number of records(students), $J$ is the  number of questions. $P_j(\alpha_i)$ is the probability of student profile $\alpha_i$ to answer correctly of question $j$, which is given by DINA model
-$$ P_j(\alpha_i) = P(X_{ij}=1|\alpha_i)=g_j^{1-\eta_{ij}}(1-s_j)^{\eta_{ij}}$$
-in which $\eta_{ij}$ is the latent response of profile $\alpha_i$ to question $j$, that is, the response when slip and guess is 0. It can be calculated by 
-$$\eta_{ij} = \prod_{k=1}^K \alpha_{ik}^{q_{jk}}$$
+With the conditional independence assumed (i.e, conditioned on a given profile category, the probability to answer each question correct is independent), the likelihood is given by \cite{de2009dina} \cite{chen2015statistical}
+\begin{equation}
+\begin{split}
+L(p,Q,s,g|X) & = P(X|p,Q,s,g) \\
+& = \prod_{i=1}^I \sum_{\alpha}p_{\alpha}P(X_i|\alpha, Q, s, g) \\
+& = \prod_{i=1}^I \sum_{\alpha}p_{\alpha} \prod_{j=1}^J P_j(\alpha)^{X_{ij}}[1-P_j(\alpha)]^{1-X_{ij}}
+\end{split}
+\end{equation}
+in which $X$ is the response matrix and $X_i$ is the $i$-th row, $I$ is the number of records(students), $J$ is the  number of questions. $P_j(\alpha)$ is the probability of student profile $\alpha$ to answer correctly of question $j$, notice $\alpha$ in 3-skill case has only 8 possible values, for any of them $\alpha_m, m =1,...,8$, the probability is given by DINA model
+$$ P_j(\alpha_m) = P(X_{ij}=1|\alpha_m)=g_j^{1-\eta_{mj}}(1-s_j)^{\eta_{mj}}$$
+in which $\eta_{mj}$ is the latent response of profile $\alpha_m$ to question $j$, that is, the response when slip and guess is 0. It can be calculated by 
+$$\eta_{mj} = \prod_{k=1}^K \alpha_{mk}^{q_{jk}}$$
 where $K$ is the number of skills and $q_{jk}$ is the $(j,k)$-th element of Q-matrix $Q$.
 
 After having the prior and likelihood, the posterior $\hat{\alpha}$ for each student can be calculated. It has the form
