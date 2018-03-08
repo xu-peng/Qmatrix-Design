@@ -70,7 +70,7 @@ Identifiability is a general concept for statistical models. Its formal definiti
 
 \textbf{Definition (1)} \cite{casella2002statistical} A parameter $\theta$ for a family of distribution ${f(x|\theta: \theta \in \Theta}$ is \textit{identifiable} if distinct values of $\theta$ correspond to distinct pdfs or pmfs. That is, if $\theta \neq \theta^{\prime}$, then $f(x|\theta)$ is not the same function of $x$ as $f(x|\theta^{\prime})$.
 
-The DINA model has parameters $\theta = \{Q, \alpha, s, g\}$, where $Q$ is the Q-matrix. $\alpha$ represents a student profile. That is, it indicates the probability that a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of students belongs to each of these categories is the model parameter $\alpha$. Finally, $s$ and $g$ are both vectors denoting the slip and guess of each item.
+The DINA model has parameters $\theta = \{Q, p, s, g\}$, where $Q$ is the Q-matrix. p represents a student profile. That is, it indicates the probability that a student belongs to each profile category. For example, in a 3-skill case, there are $2^3=8$ categories for students to belong to, and the 8-component probability vector of students belongs to each of these categories is the model parameter $\alpha$. Finally, $s$ and $g$ are both vectors denoting the slip and guess of each item.
 
 %\Michel{It seems like $p$ should be $\alpha$ in this discussion}
 
@@ -80,7 +80,7 @@ The identifiability of all parameters in DINA model have been thoroughly investi
 
 And the heart of the current investigation is based on the following proposition:
 
-\textbf{Proposition} \cite{xu2015identifiability} Under the DINA and DINO models, with $Q$, $s$ and $g$ being known, the population proportional parameter $\alpha$ is \textit{identifiable} if and only if $Q$ is \textit{complete}.
+\textbf{Proposition} \cite{xu2015identifiability} Under the DINA and DINO models, with $Q$, $s$ and $g$ being known, the population proportional parameter $p$ is \textit{identifiable} if and only if $Q$ is \textit{complete}.
 
 %\Michel{What does this proposition imply exactly? That binary unit vectors are sufficient?}
    
@@ -94,21 +94,22 @@ In the next section, we investigate empirically the Q-matrix design options in l
 \section{Experiment}
 The Q-matrix design problem is essentially an optimization problem. Basically, we have a pool of Q-matrices, and each of them is formed by a selection with replacement from a pool of q-vectors. Each Q-matrix will yield some capacity to diagnose students, as measured by a loss function. We aim to choose a Q-matrix that minimizes the loss function.
 
-In our experiments, to use Q-matrix to diagnose students under DINA model, we follow a Bayesian framework. First, we use one-hot encoding to denote all profile categories. Set $M$ to be the number of profile categories. Then, in 3-skill case, the $M=8$ profile categories $p_i$ are:
+In our experiments, to use Q-matrix to diagnose students under DINA model, we follow a Bayesian framework. First, we use one-hot encoding to denote all profile categories. Set $M$ to be the number of profile categories. Then, in 3-skill case, the $M=8$ profile categories $pc_i$ are:
 
 \centerline{
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
-p_1 & 0 & 0 & 0 \\	
-p_2 & 1 & 0 & 0 \\
-p_3 & 0 & 1 & 0 \\
-p_4 & 0 & 0 & 1 \\
-p_5 & 1 & 1 & 0 \\
-p_6 & 1 & 0 & 1 \\
-p_7 & 0 & 1 & 1 \\
-p_8 & 1 & 1 & 1 \\
+pc_1 & 0 & 0 & 0 \\	
+pc_2 & 1 & 0 & 0 \\
+pc_3 & 0 & 1 & 0 \\
+pc_4 & 0 & 0 & 1 \\
+pc_5 & 1 & 1 & 0 \\
+pc_6 & 1 & 0 & 1 \\
+pc_7 & 0 & 1 & 1 \\
+pc_8 & 1 & 1 & 1 \\
 }}
-Therefore, a student belonging to profile $p_1$ is encoded as a binary unit vector $\alpha_1=(1,0,0,0,0,0,0,0)$, and so on for $p_2$ encoded $\alpha_2=(0,1,0,0,0,0,0,0)$, ..., and $p_8$ encoded $\alpha_8=(0,0,0,0,0,0,0,1)$.
+Therefore, a student belonging to profile $pc_1$ is encoded as a binary unit vector $\alpha_1=(1,0,0,0,0,0,0,0)$, and so on for $pc_2$ encoded $\alpha_2=(0,1,0,0,0,0,0,0)$, ..., and $pc_8$ encoded $\alpha_8=(0,0,0,0,0,0,0,1)$.
+For this case, the DINA model parameter $p = (p_1, p_2,..., p_8) = (P(\alpha_1), P(\alpha_2), ..., P(\alpha_8))$ where $P$ means probability.
 %\Michel{This is confusing because $p_1$ appears as a row label, akin to the column label $k_1$, whereas it represents a probability distribution vector over the rows. Maybe use a notation such as $P(p_1)=(1,0,0,0,0,0,0,0)$, $P(p_2)=(0,1,0,0,0,0,0,0)$,...,$P(p_8)=(0,0,0,0,0,0,0,1)$ ?}
 Then, we set the prior of each student profile to be 
 
@@ -123,7 +124,7 @@ $$\eta_{ij} = \prod_{k=1}^K \alpha_{ik}^{q_{jk}}$$
 where $K$ is the number of skills and $q_{jk}$ is the $(j,k)$-th element of Q-matrix $Q$.
 
 After having the prior and likelihood, the posterior $\hat{\alpha}$ for each student can be calculated. It has the form
-$$\hat{\alpha} = (m_1,m_2,m_3,m_4,m_5,m_6,m_7,m_8)$$ 
+$$\hat{\alpha} = (\hat{p}_1,\hat{p}_2,\hat{p}_3,\hat{p}_4,\hat{p}_5,\hat{p}_6,\hat{p}_7,\hat{p}_8)$$ 
 and then we calculate the loss between this posterior and the true profile $\alpha_{\mathrm{true}}$, which is one of the one-hot encoding vector. 
 
 In short, for any Q-matrix configuration, the loss function is defined by
@@ -135,7 +136,8 @@ To implement the experiment, for each Q-matrix configuration, we generate a resp
 In our experiments, we consider the 3-skills case and 4-skills case respectively. For 3-skills case, we conduct it with $N=200$ students, of which 25 students falling into each of 8 categories. For 4-skills case, we conduct it with $N=400$ students, of which 25 students falling into each of 16 categories. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\sloppy\raggedright Experiment 1: Comparison of three strategies}
+%\subsection{\sloppy\raggedright Experiment 1: Comparison of three strategies}
+\subsection{Experiment 1: Comparison of three strategies}
 
 In the first experiment, we compare three different Q-matrix design strategies. They are all based on repetition of a specific pool of q-vectors.
 \begin{itemize}
@@ -148,7 +150,7 @@ For the 3-skills case, all these three Q-matrices are shown below. The general p
 \parbox{.5\columnwidth}{
 \centering
 Q-matrix 1\\
-\\ (binary unit vectors)
+(binary unit vectors)\\
 \vspace*{-1ex}
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
@@ -159,10 +161,10 @@ q_3 & 0 & 0 & 1 \\
 q_{19} & 1 & 0 & 0 \\
 q_{20} & 0 & 1 & 0 \\
 q_{21} & 0 & 0 & 1 \\
-}\\
+}
 \vspace*{5ex}
 {Q-matrix 2}\\
-\\ (binary unit + all-1s vectors)
+(binary unit + all-1s vectors)\\
 \vspace*{-1ex}
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
@@ -179,7 +181,8 @@ q_{21} & 1 & 0 & 0 \\
 }}
 \parbox{.5\columnwidth}{
 \centering
-{Q-matrix 3}\\{(all~combinations)} \\
+{Q-matrix 3}\\
+{(all~combinations)} \\
 \kbordermatrix{
 	& k_1 &k_2 & k_3\\
 q_1 & 1 & 0 & 0 \\
