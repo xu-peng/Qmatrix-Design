@@ -6,6 +6,7 @@
 %\usepackage{xcolor}
 %\usepackage{svg}
 \usepackage{tikz}
+\usepackage{flushend}
 \usepackage{algorithmic}
 %\usepackage{adjustbox}
 \usepackage{paralist}
@@ -183,7 +184,7 @@ q_{21} & 1 & 1 & 1 \\
 The 4-skill case is similar, which is omitted here. Results of these two cases are shown in Figure  \ref{fig:ComparisonThreeSkill} and Figure \ref{fig:ComparisonFourSkill}.
 
 \subsection{Experiment 2: Find best configuration}
-The second experiment takes the brutal force way. We directly examine all possible Q-matrix configurations. First, for a given pool of q-vectors to choose from and an integer indicating the number of questions, we need to know the number of possible configurations of Q-matrices we have. This is equivalent to a classical combinatorial problem, that is, to allocate distinguished balls(q-vectors) to indistinguished cells(questions). It can be easily computed by combinatorial coefficients and interpreted by using stars and bars methods. For example, in 3-skill case, we have 7 q-vectors, and if we have 4 questions to allocate them, then we have ${{4+7-1}\choose {7-1}}=210$ possible configurations. This number grows up sharply as number of questions increases or number of patterns increases. To compare, in 4-skill case, and if we have 5 questions to allocate them, then we have ${{5+15-1}\choose {15-1}}=11628$ possible configurations. 
+The second experiment takes the brutal force way. We directly examine all possible Q-matrix configurations. First, for a given pool of q-vectors to choose from and an integer indicating the number of questions, we need to know the number of possible configurations of Q-matrices we have. This is equivalent to a classical combinatorial problem, that is, to allocate distinguished balls (q-vectors) to indistinguished cells (questions). It can be easily computed by combinatorial coefficients and interpreted by using stars and bars methods. For example, in 3-skill case, we have 7 q-vectors, and if we have 4 questions to allocate them, then we have ${{4+7-1}\choose {7-1}}=210$ possible configurations. This number grows up sharply as number of questions increases or number of patterns increases. To compare, in 4-skill case, and if we have 5 questions to allocate them, then we have ${{5+15-1}\choose {15-1}}=11628$ possible configurations. 
 
 For each configuration, we will calculate the MAP estimation for all categories of each student, and compare with the one-hot encoding for their true categories. The total loss is reported as the performance index.
 
@@ -290,21 +291,28 @@ Type II: Complete but not confined, meaning it not only contains all vectors $\{
 
 Type III: Incomplete Q-matrix.
 
-Type I and Type II Q-matrices performs the same when slip and guess are low(Figure\ref{fig:theta001J4ThreeSkill}, Figure \ref{fig:theta001J5FourSkill}), but when they get higher, Type II Q-matrices show a better performance(Figure \ref{fig:theta021J4ThreeSkill}, Figure\ref{fig:theta02J5FourSkill}).
+Type I and Type II Q-matrices performs the same when slip and guess are low (Figure\ref{fig:theta001J4ThreeSkill}, Figure \ref{fig:theta001J5FourSkill}), but when they get higher, Type II Q-matrices show a better performance (Figure \ref{fig:theta021J4ThreeSkill}, Figure\ref{fig:theta02J5FourSkill}).
 
 However, when more questions are involved in high slip and guess, the performance becomes more tricky. Therefore, we again consider more subtypes. In 3-skill case for 8 questions, we consider two subtypes below. 
 
 Subtype 1: Q-matrix contains each component of $\{e_{i}:i=1,...k\}$ at least twice. 
 
-Subtype 2: Other situation(e.g A complete Q-matrix but all the other vectors are just repeated $e_1$)
+Subtype 2: Other situation (e.g A complete Q-matrix but all the other vectors are just repeated $e_1$)
 .
 
 From Figure \ref{fig:theta03J8ThreeSkill} we can see that the subtype 1(denoted by triangle) shows better performance than subtype 2, meaning that repeating the whole complete Q-matrix is a better strategy just like the strategy 1 we used in experiment 1.
 
-Therefore, we argue that the best Q-matrix design is to use only the vectors $\{e_{i}:i=1,...k\}$ since it offers quicker convergence speed (as shown in experiment 1) and better robustness against slip and guess(as shown both in experiment 1 and 2).
+Therefore, we argue that the best Q-matrix design is to use only the vectors $\{e_{i}:i=1,...k\}$ since it offers quicker convergence speed (as shown in experiment 1) and better robustness against slip and guess (as shown both in experiment 1 and 2).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+This work is still in an early stage and has limits, but the main finding is wide reaching and warrants further investigations.  The support for desining Q-matrices that satisfy the identifiability condition by single-skill items is compelling in the experiments conducted with synthetic data.  The results clearly show such matrices yield 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Future Work}
-More different experiments settings can be considered with different choice on student profiles distribution, and different number of skills involved. Besides, the case that slip and guess are unknown should also be considered, which involves a different identifiability requirement \cite{xu2015identifiability}. Moreover, besides the empirical exploration, rigorous mathematical discussion can be conducted for the best Q-matrix design under DINA model. 
+Further experiments settings can be considered with different choice on student profiles distribution, and different number of skills involved. Besides, the case that slip and guess are unknown should also be considered, which involves a different identifiability requirement \cite{xu2015identifiability}. Moreover, besides the empirical exploration, rigorous mathematical discussion can be conducted for the best Q-matrix design under DINA model. 
 \bibliographystyle{apacite}
 \bibliography{biblio}
+
 \end{document}
